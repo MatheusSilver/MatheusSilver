@@ -5,3 +5,5 @@
 - 📫 Você pode entrar em contato comigo pelo Discord: Matheus Silver#8130
 - Por ultimo mas não menos importante, sempre tento manter a originalidade e a acessibilidade aos padrões brasileiros comuns, não é atoa que sempre produzo coisas em Português, SEMPRE!
 Agora... Por que você ficou aqui lendo isso mesmo?
+
+![MatheusSilver GitHub stats](https://github-readme-stats.vercel.app/api?username=MatheusSilver&show_icons=true&theme=radical&hide_border=true) 
