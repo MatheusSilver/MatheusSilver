@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2 - ARM Kernel with kw</title>
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <div class="post-layout">
+        <header class="topbar">
+            <div class="topbar-content">
+                <strong>Matheus Silveira</strong>
+                <a class="back-link" href="../index.html">Back to posts</a>
+            </div>
+        </header>
+
+        <main class="container">
+            <article class="post-card">
+                <div class="post-cover"></div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-meta-left">Week 2 - Published: 22/03/2026</span>
+                        <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">Undefined</span></span>
+                    </div>
+                    <h1>Building and booting a custom Linux kernel for ARM</h1>
+
+                    <h2>Objective</h2>
+                    <p>
+                        This week we explored the <code>Kernel Workflow Tool</code> (<code>kw</code>), which helps
+                        simplify the process of building and booting the Linux kernel from source.
+                    </p>
+                    <p>
+                        The tool also offers quality-of-life features for working with the virtual machine,
+                        such as <code>ssh</code> access and file transfer from the host machine.
+                    </p>
+
+                    <h2>Challenges</h2>
+                    <p>
+                        Since I was still learning how to configure environment variables, some <code>kw</code>
+                        features, such as <code>kw ssh</code>, did not work at first.
+                    </p>
+                    <p>
+                        We also found an outdated instruction in the tutorial regarding the Linux version to install.
+                        During the hands-on session, one of the monitors helped our group understand version distribution
+                        and select the correct version.
+                    </p>
+
+                    <h2>Experience</h2>
+                    <p>
+                        Compared with last week, I solved variable-related issues much faster, especially those involving
+                        <code>vdaX</code> and <code>initrd</code>. During the hands-on session, we also learned a few terminal
+                        productivity tricks.
+                    </p>
+                    <p>
+                        These shortcuts, such as <code>CTRL+R</code>, are not essential features, but they make development
+                        sessions significantly more comfortable.
+                    </p>
+                    <h2>References</h2>
+                    <ul>
+                        <li>
+                            <a href="https://flusp.ime.usp.br/kernel/build-linux-for-arm-kw/" target="_blank" rel="noopener noreferrer">
+                                FLUSP Tutorial: Build Linux for ARM with kw
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <p>No rights reserved. <br>You may use this content as you wish.</p>
+        </footer>
+    </div>
+    <script src="../data.js"></script>
+    <script src="post-sync.js"></script>
+</body>
+</html>
