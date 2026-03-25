@@ -10,6 +10,18 @@ window.SITE_DATA = {
     ],
     posts: [
         {
+            slug: "week5-sending-patches-by-email",
+            title: "Week 5 - Sending patches by email with git",
+            description: "This was my first week working with Git on the command line. I configured it to send emails automatically, though I ran into some issues with my email client.",
+            dateISO: "2026-03-25",
+            dateLabel: "25/03/2026",
+            category: "Week 5",
+            readingTime: "2 min read",
+            image: "https://git-scm.com/images/logos/downloads/Git-Logo-2Color.png",
+            imageBg: "#0fafcc",
+            url: "posts/week5-sending-patches-by-email"
+        },
+        {
             slug: "week4-character-device-drivers",
             title: "Week 4 - Linux kernel Character Device Drivers",
             description: "Overview of the 4th week which was mostly, an teorical view of how Linux use files. There was no hands-on experience this week.",
@@ -19,7 +31,7 @@ window.SITE_DATA = {
             readingTime: "2 min read",
             image: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
             imageBg: "#87CEEB",
-            url: "posts/week4-character-device-drivers.html"
+            url: "posts/week4-character-device-drivers"
         },
         {
             slug: "week3-kernel-config-and-modules",
@@ -31,7 +43,7 @@ window.SITE_DATA = {
             readingTime: "1 min read",
             image: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
             imageBg: "#87CEEB",
-            url: "posts/week3-kernel-config-and-modules.html"
+            url: "posts/week3-kernel-config-and-modules"
         },
         {
             slug: "week2-arm-kernel-with-kw",
@@ -43,7 +55,7 @@ window.SITE_DATA = {
             readingTime: "2 min read",
             image: "https://kworkflow.org/_images/kw_logo.png",
             imageBg: "#333333",
-            url: "posts/week2-arm-kernel-with-kw.html"
+            url: "posts/week2-arm-kernel-with-kw"
         },
         {
             slug: "week1-qemu-libvirt-environment",
@@ -55,7 +67,7 @@ window.SITE_DATA = {
             readingTime: "2 min read",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Qemu_logo.svg/1280px-Qemu_logo.svg.png",
             imageBg: "#000080",
-            url: "posts/week1-qemu-libvirt-environment.html"
+            url: "posts/week1-qemu-libvirt-environment"
         },
     ]
 };
