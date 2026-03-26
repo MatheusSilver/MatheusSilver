@@ -11,12 +11,12 @@ window.SITE_DATA = {
     posts: [
         {
             slug: "week5-sending-patches-by-email",
-            title: "Week 5 - Sending patches by email with git",
+            title: "Week 5 - Sending Patches by email with git and USP Email",
             description: "This was my first week working with Git on the command line. I configured it to send emails automatically, though I ran into some issues with my email client.",
             dateISO: "2026-03-25",
-            dateLabel: "25/03/2026",
+            dateLabel: "26/03/2026",
             category: "Week 5",
-            readingTime: "2 min read",
+            readingTime: "3 min read",
             image: "https://git-scm.com/images/logos/downloads/Git-Logo-2Color.png",
             imageBg: "#0fafcc",
             url: "posts/week5-sending-patches-by-email"
