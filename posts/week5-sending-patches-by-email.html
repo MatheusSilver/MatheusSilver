@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week 5 - Sending Patches by Email</title>
+    <title>Week 5 - Sending Patches by email with git and USP Email</title>
     <link rel="stylesheet" href="post.css">
 </head>
 <body>
@@ -22,30 +22,30 @@
                 <div class="post-cover"></div>
                 <div class="post-content">
                     <div class="post-meta">
-                        <span class="post-meta-left">Week 5 - Published: 25/03/2026</span>
+                        <span class="post-meta-left">Week 5 - Published: 25/03/2026 - Updated: 26/03/2026</span>
                         <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">Undefined</span></span>
                     </div>
-                    <h1>Sending patches by email with Git</h1>
+                    <h1>Sending Patches by email with Git and USP Email</h1>
 
                     <h2>Objective</h2>
                     <p>
-                        Considering that patches for Linux are submitted through a list of email.
-                        This week, we configured our git to be prepared to create, and submit patches
-                        using our email as the sender.
+                        Considering that patches for Linux are submitted through an email mailing list, 
+                        we configured our Git setup this week to create and submit patches using our 
+                        personal email as the sender.
                     </p>
 
-                    <h2>Challenges</h2>
-                   <p>
+                    <h2>Challenges (Before 25/03)</h2>
+                    <p>
                         Initially, I tried to configure my Outlook client as the sender, despite the tutorial's 
                         original recommendation to use Gmail. One of the main challenges I faced was the 
-                        recent requirement for 2-factor authentication (2FA), which meant I needed to 
+                        recent requirement for two-factor authentication (2FA), which meant I needed to 
                         configure an "App Password" within Outlook.
                     </p>
 
                     <p>
-                        However, this feature was not available for my account. Because of that, 
-                        I made a second attempt using my USP email, but I encountered the same 
-                        requirement for an App Password, which was also unavailable on that account.
+                        However, this feature was unavailable for my account. Consequently, I made a 
+                        second attempt using my USP email, but I encountered the same requirement for 
+                        an App Password, which was also unavailable on that account.
                     </p>
 
                     <p>
@@ -54,7 +54,7 @@
                         able to complete the setup.
                     </p>
 
-                    <h2>Experience</h2>
+                    <h2>Experience (Before 25/03)</h2>
                     <p>
                         To be perfectly honest, I take pride in avoiding the command line whenever possible. 
                         However, after this week's experience, I am slightly more inclined to agree that 
@@ -64,8 +64,37 @@
 
                     <p>
                         Even so, I will continue to avoid the command line where I can, simply because 
-                        finding workarounds is more amusing and challenging : D
+                        finding workarounds is more amusing and challenging! :D
                     </p>
+
+                    <h2>Experience (On 25/03)</h2>
+                    <p>
+                        While trying to follow Tutorial 5 on my own, I didn't notice that I should 
+                        have also read Tutorial 6. As a result, I wasted some time trying to figure out 
+                        how to send patches with my USP email, even though there was a tutorial 
+                        specifically for that.
+                    </p>
+
+                    <p>
+                        On the day of the tutorial, since I had already finished Tutorial 5, I 
+                        mainly focused on Tutorial 6. There, I faced some of the simplest yet 
+                        most frustrating issues yet. Because I was a bit distracted, I first tried to 
+                        set up the Docker image responsible for sending emails before configuring 
+                        the email container. This caused my container to initialize without any configuration, 
+                        leading me to waste an hour and a half trying to figure out what the following error meant:
+                    </p>
+
+                    <code>
+                        Unable to initialize SMTP properly. Check config and use --smtp-debug. VALUES: server=127.0.0.1 encryption=tls hello=outlook.com port=2587 at /usr/lib/git-core/git-send-email line 1655.
+                    </code>
+
+                    <p>
+                        In the end, all I needed to do was rebuild my container with the correct information 
+                        already inserted. Even so, since I was the first one to face this problem, I was 
+                        able to help other students who encountered the same issue, so it was a fun 
+                        experience by the end of the day.
+                    </p>
+
                 </div>
             </article>
         </main>
