@@ -104,6 +104,4 @@
 
 <p>Eventualmente faço pequenos hiatos entre os projetos.... E eu não estou falando isso depois de construir esta página próximo ao fim de um destes hiatos...</p>
 
-<h1></h1>
-
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=E4D00A&height=120&section=footer"/>
