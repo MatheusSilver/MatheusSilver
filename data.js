@@ -10,11 +10,23 @@ window.SITE_DATA = {
     ],
     posts: [
         {
+            slug: "week7-choosing-an-issue-to-work-on-in-the-kernel",
+            title: "Week 7 - Choosing an issue to work on in the Linux Kernel",
+            description: "This week's activity was not code related, as such, we just decided on which issue to work with on the next week.",
+            dateISO: "2026-04-08",
+            dateLabel: "08/04/2026",
+            category: "Week 6",
+            readingTime: "1 min read",
+            image: "https://linuxfactory.fr/images/logo.png",
+            imageBg: "#2E1A47",
+            url: "posts/week7-choosing-an-issue-to-work-on-in-the-kernel"
+        },
+        {
             slug: "week6-introduction-to-the-industrial-IIO-subsystem",
             title: "Week 6 - Introduction to the Industrial I/O (IIO) Subsystem",
             description: "This activity was done during one of the free weeks of the class, as such, this was a slightly simpler task compared to the others, in this week, we were introduced to the IIO driver structure, and to how the Kernel code is structured.",
-            dateISO: "2026-04-08",
-            dateLabel: "08/04/2026",
+            dateISO: "2026-04-01",
+            dateLabel: "01/04/2026",
             category: "Week 6",
             readingTime: "2 min read",
             image: "https://wiki.analog.com/_media/software/linux/docs/iio.png",

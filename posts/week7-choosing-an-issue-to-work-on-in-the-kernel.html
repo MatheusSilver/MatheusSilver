@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 7 - Choosing an Issue to Work on in the Kernel</title>
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <div class="post-layout">
+        <nav class="topbar" aria-label="Post navigation">
+            <div class="topbar-content">
+                <h1 class="logo">Matheus Silveira</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Back to posts</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container">
+            <article class="post-card">
+                <div class="post-cover"></div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-meta-left">Week 7 - Published: 08/04/2026</span>
+                        <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">Undefined</span></span>
+                    </div>
+                    <h1>Choosing an Issue to Work on in the Kernel</h1>
+
+                    <h2>Discussion</h2>
+
+                    <p>
+                        This week, my classmate and I discussed what kind of issue we should work on.
+                        I suggested an issue related to code quality, since it was simpler to work with,
+                        and I also had prior scientific initiation experience in this area.
+                        As such, we decided to work on code duplication in an Arduino chip driver,
+                        where the exact same <code>switch-case</code> statement was repeated four times,
+                        once for each light level.
+                    </p>
+
+                    <p>
+                        The file we decided to work on is in the Linux source tree under the IIO light drivers.
+                    </p>
+
+                    <p>
+                        Also, since other classmates were still trying to decide, we did a small sub-curation
+                        of the TA's list to help them select their issues.
+                    </p>
+
+                    <p>
+                        And that is it, nothing particularly special happened this week.
+                    </p>
+
+                    <h2>References</h2>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/torvalds/linux/blob/508fed6795411f5ab277fd1edc0d7adca4946f23/drivers/iio/light/tsl2591.c#L38" target="_blank" rel="noopener noreferrer">
+                                Linux Kernel Source: drivers/iio/light/tsl2591.c
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <p>No rights reserved. <br>You may use this content as you wish.</p>
+        </footer>
+    </div>
+    <script src="../data.js"></script>
+    <script src="post-sync.js"></script>
+</body>
+</html>
