@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 6 - Introduction to the Industrial I/O (IIO) Subsystem</title>
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <div class="post-layout">
+        <nav class="topbar" aria-label="Post navigation">
+            <div class="topbar-content">
+                <h1 class="logo">Matheus Silveira</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Back to posts</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container">
+            <article class="post-card">
+                <div class="post-cover"></div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-meta-left">Week 6 - Published: 08/04/2026 - Updated: 26/03/2026</span>
+                        <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">Undefined</span></span>
+                    </div>
+                    <h1>Introduction to the Industrial I/O (IIO) Subsystem</h1>
+
+                    <h2>Objective</h2>
+                    <p>
+                        This week had a slightly simpler practical task, but a heavy theoretical part.
+                        Our objective this week was to properly understand how the Linux IIO subsystem works, or at least
+                        the fundamentals behind it. For that, we followed two tutorials: the first one explained the structure,
+                        and the second one explained and guided us on how we could modify the example driver.
+                    </p>
+
+                    <h2>Challenges</h2>
+                    <p>
+                        Regarding the theoretical part, I did not face many issues, since Rodrigo's kind of "tricky" approach
+                        was something I was already used to. My first programming experience was trying to understand
+                        <a href="https://github.com/FunkinCrew/Funkin/tree/v0.2.7.1">Friday Night Funkin' code</a>, which was honestly much messier than Linux Kernel code.
+                    </p>
+
+                    <p>
+                        Because of that, seeing Rodrigo's suggestions felt like a kind of validation of how I used to approach code reading.
+                    </p>
+
+                    <h2>Experience</h2>
+                    <p>
+                        After exploring the theoretical part, I went through the experimental part of the tutorial.
+                        The objective in this part was to add a new sensor for a compass, and to do that we needed to modify a struct
+                        and add new indexes into an enum.
+                    </p>
+                    <p>
+                        A small side note here: it was actually a surprise to me that Linux Kernel uses enums,
+                        since I used to think enums were something specific to Java, and once in a while I hear people
+                        making some kind of "war" between languages.
+                    </p>
+
+                    <p>
+                        Side note apart, after those changes we finally defined new channels using <code>iio_chan_spec</code>.
+                        After that, we proceeded with the initialization and some small adjustments, and the attributes appeared easily.
+                    </p>
+
+                    <p>
+                        To be perfectly honest, the most complex task was understanding the code itself. However,
+                        I do believe it became much easier to follow the tutorial after understanding what we were doing.
+                    </p>
+
+                    <h2>References</h2>
+                    <ul>
+                        <li>
+                            <a href="https://flusp.ime.usp.br/iio/experiment-one-iio-dummy/" target="_blank" rel="noopener noreferrer">
+                                FLUSP Tutorial: Experiment One - IIO Dummy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flusp.ime.usp.br/iio/iio-dummy-anatomy/" target="_blank" rel="noopener noreferrer">
+                                FLUSP Tutorial: IIO Dummy Anatomy
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <p>No rights reserved. <br>You may use this content as you wish.</p>
+        </footer>
+    </div>
+    <script src="../data.js"></script>
+    <script src="post-sync.js"></script>
+</body>
+</html>

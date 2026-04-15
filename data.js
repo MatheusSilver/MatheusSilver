@@ -10,6 +10,18 @@ window.SITE_DATA = {
     ],
     posts: [
         {
+            slug: "week6-introduction-to-the-industrial-IIO-subsystem",
+            title: "Week 6 - Introduction to the Industrial I/O (IIO) Subsystem",
+            description: "This activity was done during one of the free weeks of the class, as such, this was a slightly simpler task compared to the others, in this week, we were introduced to the IIO driver structure, and to how the Kernel code is structured.",
+            dateISO: "2026-04-08",
+            dateLabel: "08/04/2026",
+            category: "Week 6",
+            readingTime: "2 min read",
+            image: "https://wiki.analog.com/_media/software/linux/docs/iio.png",
+            imageBg: "#FFF",
+            url: "posts/week6-introduction-to-the-industrial-IIO-subsystem"
+        },
+        {
             slug: "week5-sending-patches-by-email",
             title: "Week 5 - Sending Patches by email with git and USP Email",
             description: "This was my first week working with Git on the command line. I configured it to send emails automatically, though I ran into some issues with my email client.",
