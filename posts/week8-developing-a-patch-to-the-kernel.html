@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 8 - Developing a patch to the Linux Kernel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.min.css">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <div class="post-layout">
+        <nav class="topbar" aria-label="Post navigation">
+            <div class="topbar-content">
+                <h1 class="logo">Matheus Silveira</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Back to posts</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container">
+            <article class="post-card">
+                <div class="post-cover"></div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-meta-left">Week 8 - Published: 15/04/2026</span>
+                        <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">Undefined</span></span>
+                    </div>
+                    <h1>Developing a patch to the Linux Kernel</h1>
+
+                    <h2>Introduction</h2>
+                    <p>
+                        In the previous week, we decided to work with the tsl2591 driver, which supports a physical luminosity sensor
+                        commonly used in Raspberry Pi projects. In the Linux Kernel context, this driver is responsible for retrieving
+                        luminosity data from the sensor and exposing it to the operating system.
+                    </p>
+
+                    <h2>Issues with this driver</h2>
+                    <p>
+                        The issue was first identified by the ArKanjo tool, which is used to detect code duplication
+                        in the Linux Kernel and was developed by IME-USP.
+                    </p>
+
+                    <p>
+                        The issue pointed out by ArKanjo was related to the following three parts of the <code>tsl2591.c</code>
+                        file:
+                    </p>
+
+                    <ul>
+                        <li>17 macros that define persist registers</li>
+                        <li><code>tsl2591_persist_cycle_to_lit()</code></li>
+                        <li><code>tsl2591_persist_lit_to_cycle()</code></li>
+                    </ul>
+
+                    <p>
+                        Together, these two functions had a total of 37 duplicated lines.
+                    </p>
+
+                    <p>
+                        Based on these results, one of the main issues my classmate and I identified was that if someone
+                        wanted to implement a new kind of register, the developer would need to update three different parts
+                        of the code: the macro, the direct conversion function, and the inverse conversion function.
+                        There was also a third different function that we did not address, since it was outside the scope
+                        of the issue pointed out by ArKanjo and probably followed a different pattern that we still did not understand.
+                    </p>
+
+                    <p>
+                        For completeness, this third function is named <code>tsl2591_compatible_als_persist_cycle()</code>,
+                        and it is responsible for checking whether the requested register is available. It also follows
+                        the same pattern as the previous two functions, with a large switch-case for each register.
+                        However, in this case, it returns a different value.
+                    </p>
+
+                    <p>
+                        The whole code that we needed to refactor is given below:
+                    </p>
+
+<pre><code class="language-c">/* TSL2591 persist register definitions */
+#define TSL2591_PRST_ALS_INT_CYCLE_0        0x00
+#define TSL2591_PRST_ALS_INT_CYCLE_ANY      0x01
+#define TSL2591_PRST_ALS_INT_CYCLE_2        0x02
+#define TSL2591_PRST_ALS_INT_CYCLE_3        0x03
+#define TSL2591_PRST_ALS_INT_CYCLE_5        0x04
+#define TSL2591_PRST_ALS_INT_CYCLE_10       0x05
+#define TSL2591_PRST_ALS_INT_CYCLE_15       0x06
+#define TSL2591_PRST_ALS_INT_CYCLE_20       0x07
+#define TSL2591_PRST_ALS_INT_CYCLE_25       0x08
+#define TSL2591_PRST_ALS_INT_CYCLE_30       0x09
+#define TSL2591_PRST_ALS_INT_CYCLE_35       0x0A
+#define TSL2591_PRST_ALS_INT_CYCLE_40       0x0B
+#define TSL2591_PRST_ALS_INT_CYCLE_45       0x0C
+#define TSL2591_PRST_ALS_INT_CYCLE_50       0x0D
+#define TSL2591_PRST_ALS_INT_CYCLE_55       0x0E
+#define TSL2591_PRST_ALS_INT_CYCLE_60       0x0F
+#define TSL2591_PRST_ALS_INT_CYCLE_MAX      (BIT(4) - 1)
+
+static int tsl2591_persist_cycle_to_lit(const u8 als_persist)
+{
+	switch (als_persist) {
+	case TSL2591_PRST_ALS_INT_CYCLE_ANY:
+		return 1;
+	case TSL2591_PRST_ALS_INT_CYCLE_2:
+		return 2;
+	case TSL2591_PRST_ALS_INT_CYCLE_3:
+		return 3;
+	case TSL2591_PRST_ALS_INT_CYCLE_5:
+		return 5;
+	case TSL2591_PRST_ALS_INT_CYCLE_10:
+		return 10;
+	case TSL2591_PRST_ALS_INT_CYCLE_15:
+		return 15;
+	case TSL2591_PRST_ALS_INT_CYCLE_20:
+		return 20;
+	case TSL2591_PRST_ALS_INT_CYCLE_25:
+		return 25;
+	case TSL2591_PRST_ALS_INT_CYCLE_30:
+		return 30;
+	case TSL2591_PRST_ALS_INT_CYCLE_35:
+		return 35;
+	case TSL2591_PRST_ALS_INT_CYCLE_40:
+		return 40;
+	case TSL2591_PRST_ALS_INT_CYCLE_45:
+		return 45;
+	case TSL2591_PRST_ALS_INT_CYCLE_50:
+		return 50;
+	case TSL2591_PRST_ALS_INT_CYCLE_55:
+		return 55;
+	case TSL2591_PRST_ALS_INT_CYCLE_60:
+		return 60;
+	default:
+		return -EINVAL;
+	}
+}
+
+static int tsl2591_persist_lit_to_cycle(const u8 als_persist)
+{
+	switch (als_persist) {
+	case 1:
+		return TSL2591_PRST_ALS_INT_CYCLE_ANY;
+	case 2:
+		return TSL2591_PRST_ALS_INT_CYCLE_2;
+	case 3:
+		return TSL2591_PRST_ALS_INT_CYCLE_3;
+	case 5:
+		return TSL2591_PRST_ALS_INT_CYCLE_5;
+	case 10:
+		return TSL2591_PRST_ALS_INT_CYCLE_10;
+	case 15:
+		return TSL2591_PRST_ALS_INT_CYCLE_15;
+	case 20:
+		return TSL2591_PRST_ALS_INT_CYCLE_20;
+	case 25:
+		return TSL2591_PRST_ALS_INT_CYCLE_25;
+	case 30:
+		return TSL2591_PRST_ALS_INT_CYCLE_30;
+	case 35:
+		return TSL2591_PRST_ALS_INT_CYCLE_35;
+	case 40:
+		return TSL2591_PRST_ALS_INT_CYCLE_40;
+	case 45:
+		return TSL2591_PRST_ALS_INT_CYCLE_45;
+	case 50:
+		return TSL2591_PRST_ALS_INT_CYCLE_50;
+	case 55:
+		return TSL2591_PRST_ALS_INT_CYCLE_55;
+	case 60:
+		return TSL2591_PRST_ALS_INT_CYCLE_60;
+	default:
+		return -EINVAL;
+	}
+}    
+</code></pre>
+
+                    <h2>Solution strategy</h2>
+
+                    <p>
+                        The first thing we noticed is that not every register definition was used in the conversion. However,
+                        the ones that were used followed a value-mapping pattern. So, our first attempt was to create two arrays:
+                        one mapping cycle to lit, and another mapping lit to cycle. Even though this strategy solved the duplication,
+                        it introduced another problem. If a new register had to be added, another developer would need to understand
+                        and preserve the original array ordering, which would make future refactoring harder.
+                    </p>
+
+                    <p>
+                        After discussing this with Guilherme Ivo (thanks, Ivo :D), we decided to implement something like a
+                        double-entry dictionary that would let us get the key from a value and the value from a key.
+                    </p>
+
+                    <p>
+                        However, this decision led to another challenge: "How could we implement this kind of double-entry dictionary
+                        without relying on complicated data structures?" The answer was simple and had already been used elsewhere
+                        in <code>tsl2591.c</code>.
+                    </p>
+
+                    <p>We decided to use a struct to store both kinds of data, this structure is shown below:</p>
+
+<pre><code class="language-c">struct tsl2591_persist_entry {
+       u8 cycle;
+       int lit;
+};</code></pre>
+
+                    <p>By using this structure, the two arrays previously needed for conversion were merged into a single list of structs, which we wrote according to kernel style, as shown below:</p>
+
+<pre><code class="language-c">static const struct tsl2591_persist_entry tsl2591_persist_table[] = {
+       { TSL2591_PRST_ALS_INT_CYCLE_ANY,  1  },
+       { TSL2591_PRST_ALS_INT_CYCLE_2,    2  },
+       { TSL2591_PRST_ALS_INT_CYCLE_3,    3  },
+       { TSL2591_PRST_ALS_INT_CYCLE_5,    5  },
+       { TSL2591_PRST_ALS_INT_CYCLE_10,   10 },
+       { TSL2591_PRST_ALS_INT_CYCLE_15,   15 },
+       { TSL2591_PRST_ALS_INT_CYCLE_20,   20 },
+       { TSL2591_PRST_ALS_INT_CYCLE_25,   25 },
+       { TSL2591_PRST_ALS_INT_CYCLE_30,   30 },
+       { TSL2591_PRST_ALS_INT_CYCLE_35,   35 },
+       { TSL2591_PRST_ALS_INT_CYCLE_40,   40 },
+       { TSL2591_PRST_ALS_INT_CYCLE_45,   45 },
+       { TSL2591_PRST_ALS_INT_CYCLE_50,   50 },
+       { TSL2591_PRST_ALS_INT_CYCLE_55,   55 },
+       { TSL2591_PRST_ALS_INT_CYCLE_60,   60 },
+};</code></pre>
+
+                    <p>
+                        By making these changes, we simplified the process of implementing new registers. A developer now only needs
+                        to add a new entry to the table, and both conversion functions automatically support the new register because
+                        they read from the same data source. The new versions of <code>tsl2591_persist_cycle_to_lit()</code> and
+                        <code>tsl2591_persist_lit_to_cycle()</code> are shown below:
+                    </p>
+
+
+<pre><code class="language-c">static int tsl2591_persist_cycle_to_lit(const u8 als_persist)
+{
+	for (int i = 0; i < ARRAY_SIZE(tsl2591_persist_table); i++) {
+		if (als_persist == tsl2591_persist_table[i].cycle)
+            return tsl2591_persist_table[i].lit;
+	}
+	return -EINVAL;
+}
+
+static int tsl2591_persist_lit_to_cycle(const u8 als_persist)
+{
+	for (int i = 0; i < ARRAY_SIZE(tsl2591_persist_table); i++) {
+        if (als_persist == tsl2591_persist_table[i].lit)
+			return tsl2591_persist_table[i].cycle;
+	}
+	return -EINVAL;
+}</code></pre>
+
+                    <p>
+                        This is how we attempted to solve the code duplication issue. We are currently awaiting the maintainer's
+                        feedback to confirm whether the implementation is correct.
+                    </p>
+
+                    <h2>Experience</h2>
+
+                    <p>
+                        To be honest, resolving the issue itself was not the hardest part of the process. The hardest part was deciding
+                        how to style our code to stay aligned with the original kernel standards. That is why one of our thanks goes
+                        to Guilherme Ivo, who pointed out style issues, including some related to struct formatting and others related
+                        to array construction, such as keeping a trailing comma in the last array entry to simplify future maintenance.
+                        We honestly did not know that we could keep a trailing comma on the last array element without causing compile errors.
+                    </p>
+                    
+                    <h2>To be updated</h2>
+                    <p>
+                        In this section, I intend to insert the links to the CI output and the maintainer's answer.
+                    </p>
+                    
+                    <h2>References</h2>
+                    <ul>
+                        <li>
+                            <a href="https://flusp.ime.usp.br/courses/linux-kernel-patch-submission-guidelines/" target="_blank" rel="noopener noreferrer">
+                                FLUSP Tutorial: Linux Kernel Patch Submission Guidelines
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://flusp.ime.usp.br/courses/linux-kernel-patch-suggestions/" target="_blank" rel="noopener noreferrer">
+                                FLUSP Tutorial: Linux Kernel Patch Suggestions
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://ams.com/tsl25911#tab/documents" target="_blank" rel="noopener noreferrer">
+                                TSL2591 Sensor Documentation
+                            </a>
+                        </li>
+                    </ul>
+
+
+
+                </div>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <p>No rights reserved. <br>You may use this content as you wish.</p>
+        </footer>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-clike.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-c.min.js"></script>
+    <script src="../data.js"></script>
+    <script src="post-sync.js"></script>
+</body>
+</html>

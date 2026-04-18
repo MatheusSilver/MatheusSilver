@@ -10,12 +10,24 @@ window.SITE_DATA = {
     ],
     posts: [
         {
+            slug: "week8-developing-a-patch-to-the-kernel",
+            title: "Week 8 - Developing a patch to the Linux Kernel",
+            description: "After all the previous weeks of a 'simpler work', this week we put everything into practice to develop a patch to solve the issue we choose in the previous week, as such, after several discussions, we managed to choose a strategy and implement it into the kernel, currently, we are waiting for the maintainer's answer.",
+            dateISO: "2026-04-15",
+            dateLabel: "15/04/2026",
+            category: "Week 8",
+            readingTime: "5 min read",
+            image: "https://www.didierdelboo.be/art/under-construction-tux.png",
+            imageBg: "#2E1A47",
+            url: "posts/week7-choosing-an-issue-to-work-on-in-the-kernel"
+        },
+        {
             slug: "week7-choosing-an-issue-to-work-on-in-the-kernel",
             title: "Week 7 - Choosing an issue to work on in the Linux Kernel",
             description: "This week's activity was not code related, as such, we just decided on which issue to work with on the next week.",
             dateISO: "2026-04-08",
             dateLabel: "08/04/2026",
-            category: "Week 6",
+            category: "Week 7",
             readingTime: "1 min read",
             image: "https://linuxfactory.fr/images/logo.png",
             imageBg: "#2E1A47",
