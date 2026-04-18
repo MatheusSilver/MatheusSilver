@@ -2,7 +2,7 @@ window.SITE_DATA = {
     projects: [
         {
             title: "JLPTrial",
-            description: "An app to help you in your studies for the Japanese Language Profiency Test.",
+            description: "An app to help you study for the Japanese Language Proficiency Test.",
             technologies: ["React", "SQLite", "React-Native", "Expo"],
             status: "Em Desenvolvimento",
             icon: "Full"
@@ -12,19 +12,19 @@ window.SITE_DATA = {
         {
             slug: "week8-developing-a-patch-to-the-kernel",
             title: "Week 8 - Developing a patch to the Linux Kernel",
-            description: "After all the previous weeks of a 'simpler work', this week we put everything into practice to develop a patch to solve the issue we choose in the previous week, as such, after several discussions, we managed to choose a strategy and implement it into the kernel, currently, we are waiting for the maintainer's answer.",
+            description: "After several weeks of simpler work, this week we put everything into practice to develop a patch for the issue we chose in the previous week. After several discussions, we selected a strategy and implemented it in the kernel. We are currently waiting for the maintainer's answer.",
             dateISO: "2026-04-15",
             dateLabel: "15/04/2026",
             category: "Week 8",
             readingTime: "5 min read",
             image: "https://www.didierdelboo.be/art/under-construction-tux.png",
             imageBg: "#2E1A47",
-            url: "posts/week7-choosing-an-issue-to-work-on-in-the-kernel"
+            url: "posts/week8-developing-a-patch-to-the-kernel"
         },
         {
             slug: "week7-choosing-an-issue-to-work-on-in-the-kernel",
             title: "Week 7 - Choosing an issue to work on in the Linux Kernel",
-            description: "This week's activity was not code related, as such, we just decided on which issue to work with on the next week.",
+            description: "This week's activity was not code-related, so we decided which issue to work on the following week.",
             dateISO: "2026-04-08",
             dateLabel: "08/04/2026",
             category: "Week 7",
@@ -36,7 +36,7 @@ window.SITE_DATA = {
         {
             slug: "week6-introduction-to-the-industrial-IIO-subsystem",
             title: "Week 6 - Introduction to the Industrial I/O (IIO) Subsystem",
-            description: "This activity was done during one of the free weeks of the class, as such, this was a slightly simpler task compared to the others, in this week, we were introduced to the IIO driver structure, and to how the Kernel code is structured.",
+            description: "This activity was done during one of the class's free weeks, so it was a slightly simpler task compared to the others. In this week, we were introduced to the IIO driver structure and to how kernel code is organized.",
             dateISO: "2026-04-01",
             dateLabel: "01/04/2026",
             category: "Week 6",
@@ -60,7 +60,7 @@ window.SITE_DATA = {
         {
             slug: "week4-character-device-drivers",
             title: "Week 4 - Linux kernel Character Device Drivers",
-            description: "Overview of the 4th week which was mostly, an teorical view of how Linux use files. There was no hands-on experience this week.",
+            description: "Overview of the 4th week, which was mostly a theoretical view of how Linux uses files. There was no hands-on experience this week.",
             dateISO: "2026-03-22",
             dateLabel: "22/03/2026",
             category: "Week 4",
@@ -72,7 +72,7 @@ window.SITE_DATA = {
         {
             slug: "week3-kernel-config-and-modules",
             title: "Week 3 - Linux kernel build configuration and modules",
-            description: "A summary of one of the most interesting weeks so far, not in terms of complexity, but in terms of what its acomplishments.",
+            description: "A summary of one of the most interesting weeks so far, not in terms of complexity, but in terms of its accomplishments.",
             dateISO: "2026-03-22",
             dateLabel: "22/03/2026",
             category: "Week 3",
@@ -84,7 +84,7 @@ window.SITE_DATA = {
         {
             slug: "week2-arm-kernel-with-kw",
             title: "Week 2 - Building and booting a custom ARM kernel with kw",
-            description: "First time I built my own (not yet customized) Linux distribution from source using KW, and some issues regading SSH",
+            description: "The first time I built my own (not yet customized) Linux distribution from source using kw, along with some issues regarding SSH.",
             dateISO: "2026-03-22",
             dateLabel: "22/03/2026",
             category: "Week 2",
@@ -96,7 +96,7 @@ window.SITE_DATA = {
         {
             slug: "week1-qemu-libvirt-environment",
             title: "Week 1 - Setting up a test environment with QEMU and libvirt",
-            description: "A short report on how I prepared QEMU/libvirt environment for safe kernel experimentation, and some considerations about my current linux experience.",
+            description: "A short report on how I prepared a QEMU/libvirt environment for safe kernel experimentation, along with some considerations about my current Linux experience.",
             dateISO: "2026-03-22",
             dateLabel: "22/03/2026",
             category: "Week 1",
