@@ -10,7 +10,7 @@ window.SITE_DATA = {
     ],
     posts: [
         {
-            slug: "week8-developing-a-patch-to-the-kernel",
+            slug: "week8-developing-a-patch-to-kernel",
             title: "Week 8 - Developing a patch to the Linux Kernel",
             description: "After several weeks of simpler work, this week we put everything into practice to develop a patch for the issue we chose in the previous week. After several discussions, we selected a strategy and implemented it in the kernel. We are currently waiting for the maintainer's answer.",
             dateISO: "2026-04-15",
@@ -19,7 +19,7 @@ window.SITE_DATA = {
             readingTime: "5 min read",
             image: "https://www.didierdelboo.be/art/under-construction-tux.png",
             imageBg: "#2E1A47",
-            url: "posts/week8-developing-a-patch-to-the-kernel"
+            url: "posts/week8-developing-a-patch-to-kernel"
         },
         {
             slug: "week7-choosing-an-issue-to-work-on-in-the-kernel",
