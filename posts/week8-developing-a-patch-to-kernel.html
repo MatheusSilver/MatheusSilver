@@ -34,14 +34,14 @@
                     <h2>Introduction</h2>
                     <p>
                         In the previous week, we decided to work with the tsl2591 driver, which supports a physical luminosity sensor
-                        commonly used in Raspberry Pi projects. In the Linux Kernel context, this driver is responsible for retrieving
+                        commonly used in Raspberry Pi projects. In the Linux kernel context, this driver is responsible for retrieving
                         luminosity data from the sensor and exposing it to the operating system.
                     </p>
 
                     <h2>Issues with this driver</h2>
                     <p>
                         The issue was first identified by the ArKanjo tool, which is used to detect code duplication
-                        in the Linux Kernel and was developed by IME-USP.
+                        in the Linux kernel and was developed by IME-USP.
                     </p>
 
                     <p>
@@ -63,7 +63,7 @@
                         Based on these results, one of the main issues my classmate and I identified was that if someone
                         wanted to implement a new kind of register, the developer would need to update three different parts
                         of the code: the macro, the direct conversion function, and the inverse conversion function.
-                        There was also a third different function that we did not address, since it was outside the scope
+                        There was also a third function that we did not address, since it was outside the scope
                         of the issue pointed out by ArKanjo and probably followed a different pattern that we still did not understand.
                     </p>
 
@@ -195,7 +195,7 @@ static int tsl2591_persist_lit_to_cycle(const u8 als_persist)
                         in <code>tsl2591.c</code>.
                     </p>
 
-                    <p>We decided to use a struct to store both kinds of data, this structure is shown below:</p>
+                    <p>We decided to use a struct to store both kinds of data. This structure is shown below:</p>
 
 <pre><code class="language-c">struct tsl2591_persist_entry {
        u8 cycle;
@@ -263,9 +263,61 @@ static int tsl2591_persist_lit_to_cycle(const u8 als_persist)
                         We honestly did not know that we could keep a trailing comma on the last array element without causing compile errors.
                     </p>
                     
-                    <h2>Contribution Links</h2>
-                    <a href="https://gitlab.freedesktop.org/marcelomspessoto/dsl-linux/-/pipelines/1648608" target="_blank" rel="noopener noreferrer">CI Validation</a>
-                    <a href="https://lore.kernel.org/linux-iio/20260418185422.166542-1-lucas.rabaquim@usp.br/T/#u" target="_blank" rel="noopener noreferrer">Patch sent to the Kernel</a>
+                    <h2>Contribution Links (Version 1)</h2>
+                    <ul>
+                        <li>
+                            <a href="https://gitlab.freedesktop.org/marcelomspessoto/dsl-linux/-/pipelines/1648608" target="_blank" rel="noopener noreferrer">CI Validation</a>
+                        </li>
+                        <li>
+                            <a href="https://lore.kernel.org/linux-iio/20260418185422.166542-1-lucas.rabaquim@usp.br/T/#u" target="_blank" rel="noopener noreferrer">Patch sent to the Kernel</a>
+                        </li>
+                    </ul>
+
+                    <h2>Experience after first review</h2>
+
+                    <p>
+                        The first review was pretty close to the final contribution, but it had two small mistakes. The first one was that we
+                        made the commit message a little misleading about what we intended, and the second one was code related.
+                    </p>
+
+                    <p>
+                        To briefly recap, we show below the struct code and the function signatures:
+                    </p>
+
+<pre><code class="language-c">struct tsl2591_persist_entry {
+       u8 cycle;
+       int lit;
+};
+static int tsl2591_persist_cycle_to_lit(const u8 als_persist);
+static int tsl2591_persist_lit_to_cycle(const u8 als_persist);
+</code></pre>
+
+                    <p>
+                        If you look closely, you may be able to see that both functions receive an <code>u8</code> value and return an int,
+                        at first, while looking at the first function, we thought:
+                        <br>
+                        <i>"Well, if cycle is passed as u8 and lit is returned as an int, maybe lit should also be a u8."</i>
+                        <br>
+                        But we did not consider the other function signature, and this was pointed out by David Lechner (which I also agree was wrong).
+                        As such, we fixed that and sent out a new patch.
+                    </p>
+
+                    <h2>Contribution Links (Version 2)</h2>
+                    <ul>
+                        <li>
+                            <a href="https://gitlab.freedesktop.org/marcelomspessoto/dsl-linux/-/pipelines/1648729" target="_blank" rel="noopener noreferrer">CI Validation (v2)</a>
+                        </li>
+                        <li>
+                            <a href="https://lore.kernel.org/linux-iio/20260419123604.591dc3ec@jic23-huawei/T/#t" target="_blank" rel="noopener noreferrer">Patch sent to the Kernel (V2)</a>
+                        </li>
+                    </ul>
+
+                    <p>Small spoiler: Jonathan Cameron had already responded to this patch suggestion, saying that:
+                        <br>
+                        <i>"In general the change looks good, but I'll leave it on list for a while before considering picking it up."</i>
+                        <br>
+                        So this time, unless it is an unneeded change, it will probably get accepted : D
+                    </p>
                     
                     <h2>References</h2>
                     <ul>
