@@ -10,6 +10,18 @@ window.SITE_DATA = {
     ],
     posts: [
         {
+            slug: "week9-patch-final-adjustments",
+            title: "Week 9 - Adjusting the Previous Patch to Kernel Standards",
+            description: "This week we refined the previous kernel patch based on maintainer feedback, changed the persistence table to a more efficient array-based layout, adjusted the loop to start from the first valid entry, and sent the updated version for review. Spoiler: It got accepted : D",
+            dateISO: "2026-06-01",
+            dateLabel: "01/06/2026",
+            category: "Week 9",
+            readingTime: "3 min read",
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0a0S3ve8hUYVEvWoI8HLDznb7v26gpcWwww&s",
+            imageBg: "#ffffff",
+            url: "posts/week9-patch-final-adjustments"
+        },
+        {
             slug: "week8-developing-a-patch-to-kernel",
             title: "Week 8 - Developing a patch to the Linux Kernel",
             description: "After several weeks of simpler work, this week we put everything into practice to develop a patch for the issue we chose in the previous week. After several discussions, we selected a strategy and implemented it in the kernel. We are currently waiting for the maintainer's answer.",

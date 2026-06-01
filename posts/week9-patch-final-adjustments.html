@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 9 - Adjusting the Previous Patch to Kernel Standards</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.min.css">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <div class="post-layout">
+        <nav class="topbar" aria-label="Post navigation">
+            <div class="topbar-content">
+                <h1 class="logo">Matheus Silveira</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Back to posts</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container">
+            <article class="post-card">
+                <div class="post-cover"></div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-meta-left">Week 9 - Published: 01/06/2026</span>
+                        <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">Undefined</span></span>
+                    </div>
+                    <h1>Adjusting the Previous Patch to Kernel Standards</h1>
+
+                    <h2>Introduction</h2>
+                    <p>
+                        Despite the strike that started at IME-USP, we still developed our patch for the Linux kernel.
+                        The development diary from the previous week can be found through <a href="week8-developing-a-patch-to-kernel.html">this link</a>.
+                    </p>
+
+                    <p>
+                        One week after that post, we received several comments from Jonathan Cameron, Andy Shevchenko, and David Lechner regarding
+                        style, code conventions, and, most importantly, a design decision that could potentially improve performance while
+                        maintaining readability. We will detail those changes below.
+                    </p>
+
+                    <h2>Changes Requested</h2>
+                    <p>
+                        After v1 was sent, Andy gave one highly valuable suggestion related to the way we were storing data.
+                    </p>
+                    <p>
+                        Previously, we thought about using an array of structs and linearly searching through it to find whether the register
+                        existed or not. However, Andy suggested using an array of values directly, which would allow us to check in constant
+                        time whether a conversion existed or not. Below is the previous code and the new code:
+                    </p>
+<h3>
+    Previous Code:
+</h3>
+                    <pre><code class="language-c">static const struct tsl2591_persist_entry tsl2591_persist_table[] = {
+       { TSL2591_PRST_ALS_INT_CYCLE_ANY,  1  },
+       { TSL2591_PRST_ALS_INT_CYCLE_2,    2  },
+       { TSL2591_PRST_ALS_INT_CYCLE_3,    3  },
+       { TSL2591_PRST_ALS_INT_CYCLE_5,    5  },
+       { TSL2591_PRST_ALS_INT_CYCLE_10,   10 },
+       { TSL2591_PRST_ALS_INT_CYCLE_15,   15 },
+       { TSL2591_PRST_ALS_INT_CYCLE_20,   20 },
+       { TSL2591_PRST_ALS_INT_CYCLE_25,   25 },
+       { TSL2591_PRST_ALS_INT_CYCLE_30,   30 },
+       { TSL2591_PRST_ALS_INT_CYCLE_35,   35 },
+       { TSL2591_PRST_ALS_INT_CYCLE_40,   40 },
+       { TSL2591_PRST_ALS_INT_CYCLE_45,   45 },
+       { TSL2591_PRST_ALS_INT_CYCLE_50,   50 },
+       { TSL2591_PRST_ALS_INT_CYCLE_55,   55 },
+       { TSL2591_PRST_ALS_INT_CYCLE_60,   60 },
+};</code></pre>
+
+<h3>
+    New Code (Andy suggestion)
+</h3>
+
+<pre><code class="language-c">static const u8 tsl2591_persist_table[] = {
+	[TSL2591_PRST_ALS_INT_CYCLE_ANY] = 1,
+	[TSL2591_PRST_ALS_INT_CYCLE_2]   = 2,
+	[TSL2591_PRST_ALS_INT_CYCLE_3]   = 3,
+	[TSL2591_PRST_ALS_INT_CYCLE_5]   = 5,
+	[TSL2591_PRST_ALS_INT_CYCLE_10]  = 10,
+	[TSL2591_PRST_ALS_INT_CYCLE_15]  = 15,
+	[TSL2591_PRST_ALS_INT_CYCLE_20]  = 20,
+	[TSL2591_PRST_ALS_INT_CYCLE_25]  = 25,
+	[TSL2591_PRST_ALS_INT_CYCLE_30]  = 30,
+	[TSL2591_PRST_ALS_INT_CYCLE_35]  = 35,
+	[TSL2591_PRST_ALS_INT_CYCLE_40]  = 40,
+	[TSL2591_PRST_ALS_INT_CYCLE_45]  = 45,
+	[TSL2591_PRST_ALS_INT_CYCLE_50]  = 50,
+	[TSL2591_PRST_ALS_INT_CYCLE_55]  = 55,
+	[TSL2591_PRST_ALS_INT_CYCLE_60]  = 60,
+};</code></pre>
+
+    <p>
+        The previous suggestion led us to send a third version of the patch. This version was also reviewed by
+        Marcelo Schmitt, who made us notice a small typo in the names of the patch developers, which would have been
+        funny if it had gone to production with a wrong name.
+    </p>
+
+    <p>
+        Another suggestion Marcelo and Jonathan sent to us was related to how we were looping through the array.
+        Since register 0 is not used in the conversion, they suggested starting the loop from 1 and, for readability,
+        naming the starting value <code>TSL2591_PRST_ALS_INT_CYCLE_ANY</code>.
+    </p>
+
+    <p>
+        As such, the final modification in our patch is shown below:
+    </p>
+
+<h3>
+    Previous Code:
+</h3>
+<pre><code class="language-c">static int tsl2591_persist_lit_to_cycle(const u8 als_persist)
+{
+	int i;
+
+	for (i = 0; i < ARRAY_SIZE(tsl2591_persist_table); i++) {
+		if (als_persist == tsl2591_persist_table[i])
+			return i;
+ 	}
+
+	return -EINVAL;
+}</code></pre>
+
+<h3>
+    New Code (Marcelo and Jonathan's suggestion)
+</h3>
+
+<p>
+    I was actually happy that they suggested this since, after using C87 with Professor Ernesto Goldberg,
+    I started thinking that this "need" to declare <code>int i</code> before the loop was really ugly.
+
+    Luckily, the kernel maintainers agree with that. :D
+</p>
+
+<pre><code class="language-c">static int tsl2591_persist_lit_to_cycle(const u8 als_persist)
+{
+    for (unsigned int i = TSL2591_PRST_ALS_INT_CYCLE_ANY;
+         i < ARRAY_SIZE(tsl2591_persist_table);
+         i++) {
+        if (als_persist == tsl2591_persist_table[i])
+            return i;
+    }
+
+	return -EINVAL;
+}</code></pre>
+
+    <p>
+        After those small changes, the patch was finally accepted and is now on the testing branch.
+    </p>
+    
+    <h2>Contribution Links (Version 3)</h2>
+        <ul>
+            <li>
+                <a href="https://patchwork.kernel.org/project/linux-iio/patch/20260522182058.199762-1-matheus.feitosa@usp.br/" target="_blank" rel="noopener noreferrer">Patch sent to the Kernel</a>
+            </li>
+        </ul>
+    <h2>Contribution Links (Version 4)</h2>
+        <ul>
+            <li>
+                <a href="https://gitlab.freedesktop.org/marcelomspessoto/dsl-linux/-/pipelines/1648608" target="_blank" rel="noopener noreferrer">CI Validation</a>
+            </li>
+            <li>
+                <a href="https://patchwork.kernel.org/project/linux-iio/patch/20260528185912.24774-1-matheus.feitosa@usp.br/" target="_blank" rel="noopener noreferrer">Patch sent to the Kernel</a>
+            </li>
+        </ul>
+
+
+    <h2>
+        Future work:
+    </h2>
+                    
+    <p>
+        At the end of the patch review, Jonathan gave us another issue to work on,
+        which is related to the uselessness of <code>tsl2591_compatible_int_time()</code>.
+    </p>
+
+    <p>
+        We decided to take on the suggestion and are already working on it, but that will be the subject of
+        next week's post.
+    </p>
+
+                                       
+        <h2>References</h2>
+        <ul>
+            <li>
+                <a href="https://flusp.ime.usp.br/courses/linux-kernel-patch-submission-guidelines/" target="_blank" rel="noopener noreferrer">
+                    FLUSP Tutorial: Linux Kernel Patch Submission Guidelines
+                </a>
+            </li>
+            <li>
+                <a href="https://flusp.ime.usp.br/courses/linux-kernel-patch-suggestions/" target="_blank" rel="noopener noreferrer">
+                    FLUSP Tutorial: Linux Kernel Patch Suggestions
+                </a>
+            </li>
+            <li>
+                <a href="https://ams.com/tsl25911#tab/documents" target="_blank" rel="noopener noreferrer">
+                    TSL2591 Sensor Documentation
+                </a>
+            </li>
+        </ul>
+
+
+
+        </div>
+    </article>
+</main>
+
+        <footer class="site-footer">
+            <p>No rights reserved. <br>You may use this content as you wish.</p>
+        </footer>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-clike.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-c.min.js"></script>
+    <script src="../data.js"></script>
+    <script src="post-sync.js"></script>
+</body>
+</html>
