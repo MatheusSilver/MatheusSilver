@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 10 - Speedrunning patches</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.min.css">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <div class="post-layout">
+        <nav class="topbar" aria-label="Post navigation">
+            <div class="topbar-content">
+                <h1 class="logo">Matheus Silveira</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Back to posts</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container">
+            <article class="post-card">
+                <div class="post-cover"></div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-meta-left">Week 10 - Published: 10/06/2026</span>
+                        <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">1 min read</span></span>
+                    </div>
+                    <h1>Speedrunning patches</h1>
+
+                    <h2>Introduction</h2>
+                    <p>
+                        Because our previous contribution took nearly four weeks to be accepted, we focused this contribution on submission speed rather than content, to see how the Linux Kernel contribution process has changed.
+                    </p>
+
+                    <p>
+                        Last week we refactored <code>TSL2591.c</code> to remove redundant switch cases and duplicated code.
+
+                        After the change was accepted, Jonathan Cameron suggested removing part of the validation function to eliminate an unreachable call, which rendered another function unused.
+                    </p>
+
+                    <h2>The Patch itself</h2>
+                    <p>
+                        This patch removes code rather than adding it. The removed code is shown below:
+                    </p>
+<h3>
+    Previous Code:
+</h3>
+                    <pre><code class="language-c">static int tsl2591_compatible_als_persist_cycle(struct tsl2591_chip *chip,
+                                               const u32 als_persist)
+{
+       switch (als_persist) {
+       case TSL2591_PRST_ALS_INT_CYCLE_ANY:
+       case TSL2591_PRST_ALS_INT_CYCLE_2:
+       case TSL2591_PRST_ALS_INT_CYCLE_3:
+       case TSL2591_PRST_ALS_INT_CYCLE_5:
+       case TSL2591_PRST_ALS_INT_CYCLE_10:
+       case TSL2591_PRST_ALS_INT_CYCLE_15:
+       case TSL2591_PRST_ALS_INT_CYCLE_20:
+       case TSL2591_PRST_ALS_INT_CYCLE_25:
+       case TSL2591_PRST_ALS_INT_CYCLE_30:
+       case TSL2591_PRST_ALS_INT_CYCLE_35:
+       case TSL2591_PRST_ALS_INT_CYCLE_40:
+       case TSL2591_PRST_ALS_INT_CYCLE_45:
+       case TSL2591_PRST_ALS_INT_CYCLE_50:
+       case TSL2591_PRST_ALS_INT_CYCLE_55:
+       case TSL2591_PRST_ALS_INT_CYCLE_60:
+               return 0;
+       default:
+               return -EINVAL;
+       }
+}
+
+
+...
+
+               ret = tsl2591_compatible_als_persist_cycle(chip, als_persist);
+               if (ret < 0)
+                       goto err_unlock;
+</code></pre>
+
+<p>
+    However, just above that function there is already a validation being performed:
+</p>
+
+<pre><code class="language-c">
+    als_persist = tsl2591_persist_lit_to_cycle(period);
+		if (als_persist < 0) {
+			ret = -EINVAL;
+			goto err_unlock;
+		}
+</code></pre>
+
+<p>
+    As noted last week, `tsl2591_persist_lit_to_cycle(period)` already validates the input. After refactoring it became clear that the long switch-based validation was redundant, so the switch function could be removed instead of refactored.
+</p>
+
+<p>
+    The patch was sent on 2 June 2026 at 15:13 and accepted on 3 June 2026 at 08:41 — only 19 hours later, compared with almost three weeks for Guilherme Ivo's patch to get at least reviewed : D
+</p>
+
+                                       
+        <h2>References</h2>
+        <ul>
+            <li>
+                <a href="https://flusp.ime.usp.br/courses/linux-kernel-patch-submission-guidelines/" target="_blank" rel="noopener noreferrer">
+                    FLUSP Tutorial: Linux Kernel Patch Submission Guidelines
+                </a>
+            </li>
+            <li>
+                <a href="https://flusp.ime.usp.br/courses/linux-kernel-patch-suggestions/" target="_blank" rel="noopener noreferrer">
+                    FLUSP Tutorial: Linux Kernel Patch Suggestions
+                </a>
+            </li>
+            <li>
+                <a href="https://ams.com/tsl25911#tab/documents" target="_blank" rel="noopener noreferrer">
+                    TSL2591 Sensor Documentation
+                </a>
+            </li>
+        </ul>
+
+
+
+        </div>
+    </article>
+</main>
+
+        <footer class="site-footer">
+            <p>No rights reserved. <br>You may use this content as you wish.</p>
+        </footer>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-clike.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-c.min.js"></script>
+    <script src="../data.js"></script>
+    <script src="post-sync.js"></script>
+</body>
+</html>

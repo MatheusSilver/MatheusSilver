@@ -10,6 +10,18 @@ window.SITE_DATA = {
     ],
     posts: [
         {
+            slug: "week10-kernel-fast-patching",
+            title: "Week 10 - Speedrunning patches",
+            description: "Following last week's spoiler, our first patch was accepted with an additional suggestion. Our simplification made part of the code unnecessary, so this week we removed that unused part.",
+            dateISO: "2026-06-10",
+            dateLabel: "10/06/2026",
+            category: "Week 10",
+            readingTime: "1 min read",
+            image: "https://dl.flathub.org/media/org/supertuxproject/SuperTux/4f6b0552fdc2366441e0bdc30b86f123/icons/128x128@2/org.supertuxproject.SuperTux.png",
+            imageBg: "#D95D39",
+            url: "posts/week10-kernel-fast-patching"
+        },
+        {
             slug: "week9-patch-final-adjustments",
             title: "Week 9 - Adjusting the Previous Patch to Kernel Standards",
             description: "This week we refined the previous kernel patch based on maintainer feedback, changed the persistence table to a more efficient array-based layout, adjusted the loop to start from the first valid entry, and sent the updated version for review. Spoiler: It got accepted : D",
