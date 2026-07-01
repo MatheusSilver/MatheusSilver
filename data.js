@@ -10,6 +10,18 @@ window.SITE_DATA = {
     ],
     posts: [
         {
+            slug: "week12-a-very-complicated-simple-issue",
+            title: "Week 12 - A very complicated simple issue",
+            description: "In this week's post,",
+            dateISO: "2026-07-01",
+            dateLabel: "01/07/2026",
+            category: "Week 12",
+            readingTime: "4 min read",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Discover_logo.svg/1280px-Discover_logo.svg.png",
+            imageBg: "#E11D48",
+            url: "posts/week11-new-projects"
+        },
+        {
             slug: "week11-new-projects",
             title: "Week 11 - New Projects",
             description: "After the last contribution to the Linux Kernel, we started the second phase of the class which consists of choosing a different FLOSS software to contribute. In this post, we detail the opportunities presented to us and our final choice for the next project. (I hope the icon doesn't spoiler anything)",
@@ -18,7 +30,7 @@ window.SITE_DATA = {
             category: "Week 11",
             readingTime: "1 min read",
             image: "https://kde.org/stuff/clipart/logo/kde-logo-gray-transparent-3000x3000.png",
-            imageBg: "#D95D39",
+            imageBg: "#3DAEE9",
             url: "posts/week11-new-projects"
         },
         {

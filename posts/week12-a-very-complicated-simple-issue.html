@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 12 - A very complicated simple issue</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.min.css">  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <div class="post-layout">
+        <nav class="topbar" aria-label="Post navigation">
+            <div class="topbar-content">
+                <h1 class="logo">Matheus Silveira</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Back to posts</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container">
+            <article class="post-card">
+                <div class="post-cover"></div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-meta-left">Week 12 - Published: 01/07/2026</span>
+                        <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">1 min read</span></span>
+                    </div>
+                    <h1>A very complicated simple issue</h1>
+
+                    <h2>Introduction</h2>
+                    <p>
+                        This week we worked on a KDE Discover issue about adding a Flatpak source that was already there.
+                        It looked like a tiny problem at first, but it ended up eating a surprising amount of time because we kept trying different ideas before landing on the real cause.
+                    </p>
+
+                    <p>
+                        The funny part is that this bug bothered me a bit, because I used to have real trouble adding sources when I was trying to download NVIDIA drivers on Debian.
+                        I do not have that exact problem anymore now that I use Kubuntu, but I still remember how annoying that kind of flow can be, so the bug made sense to me right away.
+                    </p>
+
+                    <p>
+                        The breakthrough came when we checked Discover's logs while trying to add a duplicate source. (You may see that the code that does that is right below our new code)
+                        That is when we noticed the warning was already there in the backend, and we also managed to reproduce the issue again after getting a little more comfortable with KDE Builder.
+                    </p>
+
+                    <pre><code class="language-c">qCWarning(LIBDISCOVER_BACKEND_FLATPAK_LOG) << "Source" << resource->flatpakName() << "already exists in"
+                                                << flatpak_installation_get_path(preferredInstallation());</code></pre>
+
+                    <h2>The Patch itself</h2>
+                    <p>
+                        After chasing several dead ends, we realized the fix was much simpler than expected: just add one line to an already existing function so Discover could show the user a visible message instead of only writing to the log.
+                    </p>
+                    <pre><code class="language-diff">@@
+ if (g_autoptr(FlatpakRemote) remote =
+     flatpak_installation_get_remote_by_name(preferredInstallation(), resource->flatpakName().toUtf8().constData(), cancellable, nullptr)) {
++    Q_EMIT passiveMessage(i18n("Source '%1' already exists", resource->flatpakName()));
+     qCWarning(LIBDISCOVER_BACKEND_FLATPAK_LOG) << "Source" << resource->flatpakName() << "already exists in"
+                                                << flatpak_installation_get_path(preferredInstallation());
+     return nullptr;
+ }</code></pre>
+
+                    <p>
+                        The issue description in <a href="https://bugs.kde.org/show_bug.cgi?id=521044" target="_blank" rel="noopener noreferrer">KDE Bug 521044</a>
+                        matched what we saw in practice: Discover did not provide feedback when the repository was already there.
+                        The merge request adds that feedback directly in <code>FlatpakBackend.cpp</code>, which is enough to make the duplicate-source path visible to the user.
+                    </p>
+
+                    <p>
+                        So even though this week took several detours, the final result was a surprisingly small change that came from paying attention to the logs and being patient while reproducing the bug.
+                    </p>
+
+                    <h2>Demos</h2>
+                    <figure>
+                        <video controls preload="metadata" style="width: 100%; border-radius: 12px;">
+                            <source src="https://bugsfiles.kde.org/attachment.cgi?id=192870" type="video/webm">
+                            Your browser does not support embedded videos.
+                        </video>
+                        <figcaption>The issue as reported by Samuele.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <video controls preload="metadata" style="width: 100%; border-radius: 12px;">
+                            <source src="https://invent.kde.org/-/project/2665/uploads/5c58060ae318c50c48fd8925a8964acc/notification_demo.mp4" type="video/mp4">
+                            Your browser does not support embedded videos.
+                        </video>
+                        <figcaption>The solution demo recorded by me.</figcaption>
+                    </figure>
+
+                    <h2>References</h2>
+                    <ul>
+                        <li>
+                            <a href="https://invent.kde.org/plasma/discover/-/merge_requests/1351" target="_blank" rel="noopener noreferrer">
+                                KDE Discover Merge Request !1351
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://bugs.kde.org/show_bug.cgi?id=521044" target="_blank" rel="noopener noreferrer">
+                                KDE Bug 521044: Discover does not provide feedback for duplicate sources
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <p>No rights reserved. <br>You may use this content as you wish.</p>
+        </footer>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-clike.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-c.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-diff.min.js"></script>
+    <script src="../data.js"></script>
+    <script src="post-sync.js"></script>
+</body>
+</html>
