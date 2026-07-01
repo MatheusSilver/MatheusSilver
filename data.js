@@ -12,7 +12,7 @@ window.SITE_DATA = {
         {
             slug: "week12-a-very-complicated-simple-issue",
             title: "Week 12 - A very complicated simple issue",
-            description: "In this week's post,",
+            description: "This week we spent six hours writing a single line of code... Jokes aside, we created a Merge Request to fix KDE Discover bug 521044. It seemed simple at first, got a bit more complicated in the middle because we were missing some context of the project, and in the end it turned out to be simple as in the beginning : D",
             dateISO: "2026-07-01",
             dateLabel: "01/07/2026",
             category: "Week 12",
