@@ -19,7 +19,7 @@ window.SITE_DATA = {
             readingTime: "4 min read",
             image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Discover_logo.svg/1280px-Discover_logo.svg.png",
             imageBg: "#E11D48",
-            url: "posts/week11-new-projects"
+            url: "posts/week12-a-very-complicated-simple-issue"
         },
         {
             slug: "week11-new-projects",
