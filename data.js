@@ -16,8 +16,8 @@ window.SITE_DATA = {
             dateISO: "2026-07-07",
             dateLabel: "07/07/2026",
             category: "Week 13",
-            readingTime: "2 min read",
-            image: "https://kde.org/stuff/clipart/logo/kde-logo-blue-transparent-3000x3000.png",
+            readingTime: "3 min read",
+            image: "https://pointieststick.com/wp-content/uploads/2025/10/kde-linux-logo.png",
             imageBg: "#FFC107",
             url: "posts/week13-plasma"
         },

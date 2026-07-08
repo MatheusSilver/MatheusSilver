@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week 13 - Setting up for a large project</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.min.css">  
     <link rel="stylesheet" href="post.css">
 </head>
 <body>
@@ -40,46 +41,89 @@
 
                     <h2>The roadmap</h2>
                     <p>
-                        The issue itself was broad and ambitious. In short, it proposed a better experience for gaming mice inside KDE by improving how devices are grouped, how their buttons are configured, and how Plasma can present that information in a more user-friendly way.
-                        It was the kind of roadmap that makes sense as a long-term goal, but that also needs to be split into smaller steps before it becomes real.
+                        The roadmap was simple to describe and hard to execute: improve gaming mouse support in KDE by grouping devices better, handling button mapping, and showing the right UI in Plasma.
+                        With Farid's help, we also found that the first step had already been solved in <a href="https://invent.kde.org/lucasldr/kwin/-/commit/32c696b45ee661083041aedcd056f5b9ab8e7256" target="_blank" rel="noopener noreferrer">32c696b45ee661083041aedcd056f5b9ab8e7256</a>.
+                        That gave us a clear base for the rest of the work.
                     </p>
 
                     <p>
-                        We first identified, with Farid's help, that the first issue in the roadmap had already been solved.
-                        The commit that closes that first part is <a href="https://invent.kde.org/lucasldr/kwin/-/commit/32c696b45ee661083041aedcd056f5b9ab8e7256" target="_blank" rel="noopener noreferrer">32c696b45ee661083041aedcd056f5b9ab8e7256</a>.
-                        That was actually very useful, because it gave us a concrete baseline and made the rest of the roadmap much easier to understand.
-                    </p>
-
-                    <p>
-                        At that point we were invited to ask for help in KDE's Matrix community, and Nicolas Fella himself answered our question about the first part of the roadmap.
-                        He also gave us advice on how that work should be used as input for the second step, which helped us avoid going in the wrong direction again.
+                        We then asked for help in KDE's Matrix community, where Nicolas Fella answered our question and pointed us in the right direction for the second step.
                     </p>
 
                     <h2>The hard part</h2>
                     <p>
-                        For the second step, we first tried to explore KWin, only to discover that the real work was actually in plasma-desktop.
-                        That detour cost us time, but it also taught us something important: in KDE, the place where a feature is implemented is not always the place where you first expect to find it.
-                    </p>
-
-                    <p>
-                        From there the problem really began, because Plasma is a large project with a lot of dependencies and some of them were not compatible with my Kubuntu 24.04 setup.
-                        I spent almost three full days just trying to compile Plasma in a way that I could test locally.
+                        We first looked in KWin, but the real work was in plasma-desktop.
+                        Then the build problem started: Plasma has a lot of dependencies, and several of them did not work well on my Kubuntu 24.04 setup.
+                        I spent almost three days just trying to get a local build that I could test.
                     </p>
 
                     <h2>Getting unstuck</h2>
                     <p>
                         After that I asked Farid for help again, and he introduced us to the Brazilian KDE community.
-                        They were very helpful and suggested using Distrobox with Fedora 42 to make plasma-desktop easier to compile and test.
+                        They suggested using Distrobox with Fedora 42, which made plasma-desktop much easier to compile and test.
                     </p>
 
                     <p>
-                        I still hate Fedora, but I have to admit it is useful sometimes.
-                        Once we switched to that setup, we finally managed to develop the second part of the roadmap, which mostly consisted of implementing an interface to properly expose what had already been built in step 1.
+                        I still hate Fedora, but I have to admit it is useful, and its package manager is actually really cool.
+                        Once we switched to that setup, we finally managed to finish the second part of the roadmap.
+                    </p>
+
+                    <p>
+                        For reference, we also wrote a small setup script for building plasma-desktop inside Distrobox.
+                    </p>
+
+<pre><code class="language-bash">distrobox-create \
+  --name kde-dev \
+  --image registry.fedoraproject.org/fedora:42
+
+distrobox enter kde-dev
+
+sudo dnf upgrade --refresh
+
+sudo dnf install -y \
+    git \
+    curl \
+    wget \
+    vim \
+    gcc gcc-c++ \
+    make \
+    cmake \
+    ninja-build \
+    meson \
+    pkgconf-pkg-config \
+    python3 \
+    python3-pip \
+    python3-setuptools \
+    python3-wheel \
+    openssh-clients
+
+sudo dnf install -y kdesrc-build
+
+kdesrc-build --initial-setup
+
+sudo dnf groupinstall -y "Development Tools"
+
+sudo dnf builddep -y \
+    plasma-desktop \
+    plasma-workspace \
+    kwin
+
+sudo dnf install -y \
+    mdbook \
+    libblake3-devel \
+    bash-completion-devel
+
+kdesrc-build plasma-desktop
+</code></pre>
+
+                    <p>
+                        Note: after running <code>kdesrc-build --initial-setup</code>, you may need to edit <code>~/.config/kdesrc-buildrc</code> and adjust the <code>source-dir</code> parameter to the directory where you keep your repositories, for example <code>~/repos</code>.
+                        This is especially important if you already have a local clone of <code>plasma-desktop</code> or other KDE modules.
                     </p>
 
                     <h2>Conclusion</h2>
                     <p>
-                        This week was less about a single patch and more about learning how to move inside a big ecosystem like KDE: finding the right project, understanding the roadmap, asking the right people for help, and accepting that the build environment is part of the work too.
+                        This week was less about a single patch and more about inding the right project, understanding the roadmap, asking the right people for help.
                     </p>
 
                     <p>
@@ -107,6 +151,8 @@
             <p>No rights reserved. <br>You may use this content as you wish.</p>
         </footer>
     </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js" integrity="" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js" integrity="" crossorigin="anonymous"></script>
     <script src="../data.js"></script>
     <script src="post-sync.js"></script>
 </body>
