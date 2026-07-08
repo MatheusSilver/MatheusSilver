@@ -10,6 +10,18 @@ window.SITE_DATA = {
     ],
     posts: [
         {
+            slug: "week13-plasma",
+            title: "Week 13 - Setting up for a large project",
+            description: "We started working on a KDE project for gaming mice, learned that the first roadmap step had already been solved, and then fought Plasma builds until Distrobox and Fedora 42 finally saved the day. Also, yes, Fedora was involved. And also yes... My Kubuntu is now contaminated...",
+            dateISO: "2026-07-07",
+            dateLabel: "07/07/2026",
+            category: "Week 13",
+            readingTime: "2 min read",
+            image: "https://kde.org/stuff/clipart/logo/kde-logo-blue-transparent-3000x3000.png",
+            imageBg: "#FFC107",
+            url: "posts/week13-plasma"
+        },
+        {
             slug: "week12-a-very-complicated-simple-issue",
             title: "Week 12 - A very complicated simple issue",
             description: "This week we spent six hours writing a single line of code... Jokes aside, we created a Merge Request to fix KDE Discover bug 521044. It seemed simple at first, got a bit more complicated in the middle because we were missing some context of the project, and in the end it turned out to be simple as in the beginning : D",

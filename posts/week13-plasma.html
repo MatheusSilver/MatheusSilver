@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 13 - Setting up for a large project</title>
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <div class="post-layout">
+        <nav class="topbar" aria-label="Post navigation">
+            <div class="topbar-content">
+                <h1 class="logo">Matheus Silveira</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Back to posts</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container">
+            <article class="post-card">
+                <div class="post-cover"></div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-meta-left">Week 13 - Published: 07/07/2026</span>
+                        <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">2 min read</span></span>
+                    </div>
+                    <h1>Setting up for a large project</h1>
+
+                    <h2>Introduction</h2>
+                    <p>
+                        This week we started working on a new project inside the KDE ecosystem, and the first thing we learned is that KDE is much bigger than it looks from the outside.
+                        The work item we picked was about adding gaming mice features to the Mouse KCM, with the general goal of bringing support for button remapping, device grouping, illustrations, and optional libratbag integration into Plasma settings.
+                    </p>
+
+                    <p>
+                        At first the roadmap looked simple, but it quickly became clear that working on KDE is not just about writing code.
+                        You also need to understand where each piece lives, how the different components connect, and when the right move is to ask for help instead of forcing a guess.
+                    </p>
+
+                    <h2>The roadmap</h2>
+                    <p>
+                        The issue itself was broad and ambitious. In short, it proposed a better experience for gaming mice inside KDE by improving how devices are grouped, how their buttons are configured, and how Plasma can present that information in a more user-friendly way.
+                        It was the kind of roadmap that makes sense as a long-term goal, but that also needs to be split into smaller steps before it becomes real.
+                    </p>
+
+                    <p>
+                        We first identified, with Farid's help, that the first issue in the roadmap had already been solved.
+                        The commit that closes that first part is <a href="https://invent.kde.org/lucasldr/kwin/-/commit/32c696b45ee661083041aedcd056f5b9ab8e7256" target="_blank" rel="noopener noreferrer">32c696b45ee661083041aedcd056f5b9ab8e7256</a>.
+                        That was actually very useful, because it gave us a concrete baseline and made the rest of the roadmap much easier to understand.
+                    </p>
+
+                    <p>
+                        At that point we were invited to ask for help in KDE's Matrix community, and Nicolas Fella himself answered our question about the first part of the roadmap.
+                        He also gave us advice on how that work should be used as input for the second step, which helped us avoid going in the wrong direction again.
+                    </p>
+
+                    <h2>The hard part</h2>
+                    <p>
+                        For the second step, we first tried to explore KWin, only to discover that the real work was actually in plasma-desktop.
+                        That detour cost us time, but it also taught us something important: in KDE, the place where a feature is implemented is not always the place where you first expect to find it.
+                    </p>
+
+                    <p>
+                        From there the problem really began, because Plasma is a large project with a lot of dependencies and some of them were not compatible with my Kubuntu 24.04 setup.
+                        I spent almost three full days just trying to compile Plasma in a way that I could test locally.
+                    </p>
+
+                    <h2>Getting unstuck</h2>
+                    <p>
+                        After that I asked Farid for help again, and he introduced us to the Brazilian KDE community.
+                        They were very helpful and suggested using Distrobox with Fedora 42 to make plasma-desktop easier to compile and test.
+                    </p>
+
+                    <p>
+                        I still hate Fedora, but I have to admit it is useful sometimes.
+                        Once we switched to that setup, we finally managed to develop the second part of the roadmap, which mostly consisted of implementing an interface to properly expose what had already been built in step 1.
+                    </p>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        This week was less about a single patch and more about learning how to move inside a big ecosystem like KDE: finding the right project, understanding the roadmap, asking the right people for help, and accepting that the build environment is part of the work too.
+                    </p>
+
+                    <p>
+                        We still intend to keep contributing to KDE, and our plan is to finish the mice project and probably continue after the class ends as well.
+                    </p>
+
+                    <h2>References</h2>
+                    <ul>
+                        <li>
+                            <a href="https://invent.kde.org/teams/goals/we-care-about-your-input/-/work_items/18" target="_blank" rel="noopener noreferrer">
+                                KDE work item #18: Add gaming mice features to Mouse KCM
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://invent.kde.org/lucasldr/kwin/-/commit/32c696b45ee661083041aedcd056f5b9ab8e7256" target="_blank" rel="noopener noreferrer">
+                                Commit 32c696b45ee661083041aedcd056f5b9ab8e7256
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <p>No rights reserved. <br>You may use this content as you wish.</p>
+        </footer>
+    </div>
+    <script src="../data.js"></script>
+    <script src="post-sync.js"></script>
+</body>
+</html>
