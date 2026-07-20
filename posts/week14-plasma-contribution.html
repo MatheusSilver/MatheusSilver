@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 14 - Finally contributing to Plasma Desktop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.min.css">
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <div class="post-layout">
+        <nav class="topbar" aria-label="Post navigation">
+            <div class="topbar-content">
+                <h1 class="logo">Matheus Silveira</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Back to posts</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container">
+            <article class="post-card">
+                <div class="post-cover"></div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-meta-left">Week 14 - Published: 17/07/2026</span>
+                        <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">4 min read</span></span>
+                    </div>
+                    <h1>Finally contributing to Plasma Desktop</h1>
+
+                    <h2>Introduction</h2>
+                    <p>
+                        Last week we finally got plasma-desktop building locally, and that unlocked the second step of the roadmap we picked, improving how gaming mice show up in the Mouse KCM.
+                        This week, we finally managed to send our contribution to Plasma, after spending almost two weeks trying to figure out how to even compile Plasma, <a href="https://invent.kde.org/plasma/plasma-desktop/-/merge_requests/3896" target="_blank" rel="noopener noreferrer">!3896 - Group mice by group ID in the device list</a>.
+                    </p>
+
+                    <h2>The problem</h2>
+                    <p>
+                        Some physical mice, especially the ones with extra buttons and receivers, are read by the system as more than one logical input device.
+                        Since the Mouse KCM listed every logical device it found, the same physical mouse could show up twice, or even more, in the settings list, which is confusing when you just want to configure "your mouse".
+                    </p>
+
+                    <figure>
+                        <img src="https://invent.kde.org/-/project/2802/uploads/284abc2d28a0788c8415b93391aba33d/unpatched.png" alt="Mouse KCM showing the same physical mouse listed twice" style="width: 100%; border-radius: 12px;">
+                        <figcaption>Before the patch, the same mouse appears more than once in the device list.</figcaption>
+                    </figure>
+
+                    <h2>The fix</h2>
+                    <p>
+                        libinput already groups logical devices that belong to the same physical hardware under a device group id, but KWin just wasn't exposing it yet.
+                        The merge request touches four files to expose that id and use it to deduplicate the list. Here is each change explained.
+                    </p>
+
+                    <p>
+                        First, <code>kwin_wl_device.cpp</code> loads the new property the same way it already loads every other device property, such as the name or the sys name.
+                    </p>
+
+<pre><code class="language-diff">@@ -64,6 +64,7 @@ bool KWinWaylandDevice::init()
+     // general
+     success &amp;= valueLoader(m_name);
+     success &amp;= valueLoader(m_sysName);
++    success &amp;= valueLoader(m_deviceGroup);
+     success &amp;= valueLoader(m_supportsDisableEvents);
+     success &amp;= valueLoader(m_enabled);
+     // advanced</code></pre>
+
+                    <p>
+                        That property has to exist somewhere, so <code>kwin_wl_device.h</code> declares a <code>m_deviceGroup</code> member bound to KWin's <code>deviceGroupId</code>, plus a small <code>deviceGroup()</code> getter so other classes can read it.
+                    </p>
+
+<pre><code class="language-diff">@@ -41,6 +41,11 @@ public:
+         return m_sysName.val;
+     }
+
++    QString deviceGroup() const
++    {
++        return m_deviceGroup.val;
++    }
++
+     bool supportsDisableEvents() const override
+     {
+         return m_supportsDisableEvents.val;
+@@ -274,6 +279,7 @@ private:
+     // general
+     Prop&lt;QString&gt; m_name{this, u"name"_s};
+     Prop&lt;QString&gt; m_sysName{this, u"sysName"_s};
++    Prop&lt;QString&gt; m_deviceGroup{this, u"deviceGroupId"_s};
+     Prop&lt;bool&gt; m_supportsDisableEvents{this, u"supportsDisableEvents"_s};
+     Prop&lt;bool&gt; m_enabled{this, u"enabled"_s, &amp;KWinWaylandDevice::enabledChanged};</code></pre>
+
+                    <p>
+                        With the property available, the actual grouping logic lives in <code>inputbackend.cpp</code>.
+                        A new <code>isDeviceGrouped</code> helper checks whether a candidate device shares its group id with a device that was already added, and both places that build up the device list, the initial scan and the hot-plug handler, skip a device when that happens.
+                    </p>
+
+<pre><code class="language-diff">@@ -49,12 +49,23 @@ void InputBackend::findDevices()
+             m_errorString = i18n("Critical error on reading fundamental device infos of %1.", sysName);
+             return;
+         }
++        if (isDeviceGrouped(dev.get())) {
++            qCDebug(KCM_MOUSE).nospace() &lt;&lt; "Skipping grouped device: " &lt;&lt; dev-&gt;name() &lt;&lt; " (" &lt;&lt; dev-&gt;sysName() &lt;&lt; ")";
++            continue;
++        }
+         connect(dev.get(), &amp;KWinWaylandDevice::needsSaveChanged, this, &amp;InputBackend::needsSaveChanged);
+         qCDebug(KCM_MOUSE).nospace() &lt;&lt; "Device found: " &lt;&lt; dev-&gt;name() &lt;&lt; " (" &lt;&lt; dev-&gt;sysName() &lt;&lt; ")";
+         m_devices.push_back(std::move(dev));
+     }
+ }
+
++bool InputBackend::isDeviceGrouped(const KWinWaylandDevice *dev) const
++{
++    return std::ranges::any_of(m_devices, [dev](const std::unique_ptr&lt;KWinWaylandDevice&gt; &amp;device) {
++        return device-&gt;deviceGroup() == dev-&gt;deviceGroup();
++    });
++}
++
+ bool InputBackend::forAllDevices(bool (KWinWaylandDevice::*f)()) const
+ {
+     bool ok = true;
+@@ -139,6 +150,10 @@ void InputBackend::onDeviceRowsInserted(const QModelIndex &amp;parent, int first, in
+             Q_EMIT deviceAdded(false);
+             return;
+         }
++        if (isDeviceGrouped(dev.get())) {
++            qCDebug(KCM_MOUSE).nospace() &lt;&lt; "Skipping grouped device: " &lt;&lt; dev-&gt;name() &lt;&lt; " (" &lt;&lt; dev-&gt;sysName() &lt;&lt; ")";
++            continue;
++        }
+
+         connect(dev.get(), &amp;KWinWaylandDevice::needsSaveChanged, this, &amp;InputBackend::needsSaveChanged);
+         qCDebug(KCM_MOUSE).nospace() &lt;&lt; "Device connected: " &lt;&lt; dev-&gt;name() &lt;&lt; " (" &lt;&lt; dev-&gt;sysName() &lt;&lt; ")";</code></pre>
+
+                    <p>
+                        Finally, <code>inputbackend.h</code> just adds the private declaration for that new helper so the two call sites above can see it.
+                    </p>
+
+<pre><code class="language-diff">@@ -66,6 +66,8 @@ private:
+     // all_of without short-circuiting is like for_each but with an AND-reduced accumulator.
+     bool forAllDevices(bool (KWinWaylandDevice::*f)()) const;
+
++    bool isDeviceGrouped(const KWinWaylandDevice *dev) const;
++
+     void onDeviceRowsInserted(const QModelIndex &amp;parent, int first, int last);
+     void onDeviceRowsAboutToBeRemoved(const QModelIndex &amp;parent, int first, int last);</code></pre>
+
+                    <p>
+                        Put together, only one entry per physical mouse shows up now, no matter how many logical devices libinput reports for it, and a mouse plugged in mid-session is deduplicated the same way as one that was already connected at login.
+                    </p>
+
+                    <figure>
+                        <img src="https://invent.kde.org/-/project/2802/uploads/3a991881501abb8dfc140c69e3d7ba31/patched.png" alt="Mouse KCM showing the same physical mouse listed once" style="width: 100%; border-radius: 12px;">
+                        <figcaption>After the patch, the same mouse now appears as a single device.</figcaption>
+                    </figure>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        This closes the second step of the <a href="https://invent.kde.org/teams/goals/we-care-about-your-input/-/work_items/18" target="_blank" rel="noopener noreferrer">gaming mice roadmap</a>, devices are grouped correctly now, which is the base that button remapping and per-device settings need to make sense.
+                        The merge request is open and waiting on review, and next up is looking into button remapping itself.
+                    </p>
+
+                    <h2>References</h2>
+                    <ul>
+                        <li>
+                            <a href="https://invent.kde.org/plasma/plasma-desktop/-/merge_requests/3896" target="_blank" rel="noopener noreferrer">
+                                Plasma Desktop Merge Request !3896, Group mice by group ID in the device list
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://invent.kde.org/teams/goals/we-care-about-your-input/-/work_items/18#note_1515750" target="_blank" rel="noopener noreferrer">
+                                KDE work item #18, Add gaming mice features to Mouse KCM
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <p>No rights reserved. <br>You may use this content as you wish.</p>
+        </footer>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-diff.min.js"></script>
+    <script src="../data.js"></script>
+    <script src="post-sync.js"></script>
+</body>
+</html>

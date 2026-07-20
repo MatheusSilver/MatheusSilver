@@ -10,6 +10,18 @@ window.SITE_DATA = {
     ],
     posts: [
         {
+            slug: "week14-plasma-contribution",
+            title: "Week 14 - Finally contributing to Plasma Desktop",
+            description: "Finally, after facing a lot of difficulties and doubts regarding the compilation of Plasma last week, we finally managed to send our contribution. This week's contribution involves the mouse feature so, from now on, EVERYONE using KDE Plasma is certainly going to use our code, like it or not : D",
+            dateISO: "2026-07-17",
+            dateLabel: "17/07/2026",
+            category: "Week 14",
+            readingTime: "4 min read",
+            image: "https://pointieststick.com/wp-content/uploads/2025/10/kde-linux-logo.png",
+            imageBg: "#FFC107",
+            url: "posts/week14-plasma-contribution"
+        },
+        {
             slug: "week13-plasma",
             title: "Week 13 - Setting up for a large project",
             description: "We started working on a KDE project for gaming mice, learned that the first roadmap step had already been solved, and then fought Plasma builds until Distrobox and Fedora 42 finally saved the day. Also, yes, Fedora was involved. And also yes... My Kubuntu is now contaminated...",
