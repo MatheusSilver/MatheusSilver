@@ -30,7 +30,7 @@
 
                     <h2>Introduction</h2>
                     <p>
-                        Last week we finally got plasma-desktop building locally, and that unlocked the second step of the roadmap we picked, improving how gaming mice show up in the Mouse KCM.
+                        Last week we finally got plasma-desktop building locally, and that enabling us to proceed to the second step of the roadmap we picked, improving how gaming mice show up in the Mouse KCM.
                         This week, we finally managed to send our contribution to Plasma, after spending almost two weeks trying to figure out how to even compile Plasma, <a href="https://invent.kde.org/plasma/plasma-desktop/-/merge_requests/3896" target="_blank" rel="noopener noreferrer">!3896 - Group mice by group ID in the device list</a>.
                     </p>
 
@@ -48,7 +48,7 @@
                     <h2>The fix</h2>
                     <p>
                         libinput already groups logical devices that belong to the same physical hardware under a device group id, but KWin just wasn't exposing it yet.
-                        The merge request touches four files to expose that id and use it to deduplicate the list. Here is each change explained.
+                        The merge request modifies four files to expose that id and use it to deduplicate the list. Here is each change explained.
                     </p>
 
                     <p>
@@ -89,7 +89,7 @@
      Prop&lt;bool&gt; m_enabled{this, u"enabled"_s, &amp;KWinWaylandDevice::enabledChanged};</code></pre>
 
                     <p>
-                        With the property available, the actual grouping logic lives in <code>inputbackend.cpp</code>.
+                        With the property available, the actual grouping logic in <code>inputbackend.cpp</code>.
                         A new <code>isDeviceGrouped</code> helper checks whether a candidate device shares its group id with a device that was already added, and both places that build up the device list, the initial scan and the hot-plug handler, skip a device when that happens.
                     </p>
 
@@ -113,7 +113,7 @@
 +        return device-&gt;deviceGroup() == dev-&gt;deviceGroup();
 +    });
 +}
-+
+
  bool InputBackend::forAllDevices(bool (KWinWaylandDevice::*f)()) const
  {
      bool ok = true;
@@ -138,7 +138,7 @@
      bool forAllDevices(bool (KWinWaylandDevice::*f)()) const;
 
 +    bool isDeviceGrouped(const KWinWaylandDevice *dev) const;
-+
+
      void onDeviceRowsInserted(const QModelIndex &amp;parent, int first, int last);
      void onDeviceRowsAboutToBeRemoved(const QModelIndex &amp;parent, int first, int last);</code></pre>
 
@@ -154,7 +154,7 @@
                     <h2>Conclusion</h2>
                     <p>
                         This closes the second step of the <a href="https://invent.kde.org/teams/goals/we-care-about-your-input/-/work_items/18" target="_blank" rel="noopener noreferrer">gaming mice roadmap</a>, devices are grouped correctly now, which is the base that button remapping and per-device settings need to make sense.
-                        The merge request is open and waiting on review, and next up is looking into button remapping itself.
+                        The merge request is open and waiting on review, and next up is looking into button remapping itself, however, this third step is probably going to be executed by EACH students who actually wrote the roadmap itself.
                     </p>
 
                     <h2>References</h2>
