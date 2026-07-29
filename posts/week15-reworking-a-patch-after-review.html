@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 15 - Transforming a small patch, into a giant patch</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.min.css">
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <div class="post-layout">
+        <nav class="topbar" aria-label="Post navigation">
+            <div class="topbar-content">
+                <h1 class="logo">Matheus Silveira</h1>
+                <ul class="nav-menu">
+                    <li><a href="../index.html">Back to posts</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="container">
+            <article class="post-card">
+                <div class="post-cover"></div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-meta-left">Week 15 - Published: 22/07/2026</span>
+                        <span class="post-meta-right"><span class="post-meta-icon" aria-hidden="true">&#9201;</span> <span class="post-meta-reading-time">7 min read</span></span>
+                    </div>
+                    <h1>Transforming a small patch, into a giant patch</h1>
+
+                    <h2>Introduction</h2>
+                    <p>
+                        Last week we sent our first contribution to Plasma Desktop, <a href="https://invent.kde.org/plasma/plasma-desktop/-/merge_requests/3896" target="_blank" rel="noopener noreferrer">!3896 - Group mice by group ID in the device list</a>, which used libinput's device group id to stop the same physical mouse from showing up several times in the Mouse KCM.
+                        This week the review came back, and it turned out our approach was wrong in a way we could never have noticed on our own hardware.
+                    </p>
+
+                    <h2>The review</h2>
+                    <p>
+                        The reviewer tested the patch with two Razer mice, and each one exposes three logical devices to the system.
+                        The first mouse listed them in this order.
+                    </p>
+
+                    <ul>
+                        <li><strong>Razer ProClickM</strong>, which supports left handed mode, pointer acceleration, scrolling speed, invert scroll direction and everything else you would expect.</li>
+                        <li><strong>Razer ProClickM Keyboard</strong>, which only supports invert scrolling speed and scroll direction.</li>
+                        <li><strong>Razer ProClickM Mouse</strong>, which claims to support the same things as the first one, except that changing those settings does nothing.</li>
+                    </ul>
+
+                    <p>
+                        On that mouse our patch worked. We kept the first device of the group, which happened to be the real one, and dropped the other two.
+                        The second mouse is where it fell apart, because it lists its devices in a different order.
+                    </p>
+
+                    <ul>
+                        <li><strong>Razer Orochi V2 Mouse</strong>, which claims to support everything, except that the settings do nothing.</li>
+                        <li><strong>Razer Orochi V2 Keyboard</strong>, which only supports invert scrolling speed and scroll direction.</li>
+                        <li><strong>Razer Orochi V2</strong>, which supports everything and is the one where the settings actually make a difference.</li>
+                    </ul>
+
+                    <p>
+                        Our code kept the first device it saw and threw the rest away, so the KCM ended up showing "Razer Orochi V2 Mouse" and silently discarding the only device that works.
+                        That is worse than the bug we set out to fix. Before the patch the user saw three confusing entries but at least one of them worked. After the patch the user saw a single clean entry that does absolutely nothing.
+                    </p>
+
+                    <p>
+                        Two ways forward were suggested. Either be really sure a device is useless before skipping it, or stop skipping devices at all and merge the whole group into a single entry.
+                    </p>
+
+                    <p>
+                        The first option needs information we do not have. We could ask KWin which device was used last, but a device that has been quiet so far can still wake up later, so that would only be a guess with extra steps.
+                        We went with the second option.
+                    </p>
+
+                    <p>
+                        Jakob mentioned two solutions and agreed that the second one was the best.
+                        The funny part is that the second solution was actually our first idea, we just discarded it because it looked too complicated.
+                    </p>
+
+                    <h2>How we started</h2>
+                    <p>
+                        The new plan is easy to describe. Stop picking a winner, and treat every device of the same mouse as one thing.
+                        The entry shows everything the group can do together, and anything the user changes gets sent to all of them, so it does not matter which one is the real device.
+                    </p>
+
+                    <p>
+                        Getting there took three steps. First we deleted the old logic, then we configured a device object to hold several devices at once, and finally we made the list show one entry per group.
+                    </p>
+
+                    <h2>Step one: DELETE EVERYTHING!!!!!!!!!!!!!!</h2>
+                    <p>
+                        Nothing more to add, we just DELETED EVERYTHING!!!! (which was not related to expose group devices from kwin)
+                    </p>
+
+<pre><code class="language-diff">@@ -49,23 +49,12 @@ void InputBackend::findDevices()
+             m_errorString = i18n("Critical error on reading fundamental device infos of %1.", sysName);
+             return;
+         }
+-        if (isDeviceGrouped(dev.get())) {
+-            qCDebug(KCM_MOUSE).nospace() &lt;&lt; "Skipping grouped device: " &lt;&lt; dev-&gt;name() &lt;&lt; " (" &lt;&lt; dev-&gt;sysName() &lt;&lt; ")";
+-            continue;
+-        }
+         connect(dev.get(), &amp;KWinWaylandDevice::needsSaveChanged, this, &amp;InputBackend::needsSaveChanged);
+         qCDebug(KCM_MOUSE).nospace() &lt;&lt; "Device found: " &lt;&lt; dev-&gt;name() &lt;&lt; " (" &lt;&lt; dev-&gt;sysName() &lt;&lt; ")";
+         m_devices.push_back(std::move(dev));
+     }
+ }
+
+-bool InputBackend::isDeviceGrouped(const KWinWaylandDevice *dev) const
+-{
+-    return std::ranges::any_of(m_devices, [dev](const std::unique_ptr&lt;KWinWaylandDevice&gt; &amp;device) {
+-        return device-&gt;deviceGroup() == dev-&gt;deviceGroup();
+-    });
+-}
+-
+ bool InputBackend::forAllDevices(bool (KWinWaylandDevice::*f)()) const
+ {
+     bool ok = true;</code></pre>
+
+                    <h2>Step two: it's not a name, it's "NAMES" from now on</h2>
+                    <p>
+                        The core idea of the new approach is that a <code>KWinWaylandDevice</code> should no longer mean one logical device. It should mean one physical mouse, backed by however many logical devices the system decided to expose.
+                        In practice that means the single D-Bus name becomes a list of D-Bus names.
+                    </p>
+
+<pre><code class="language-diff">@@ -32,7 +32,7 @@ Qt::MouseButtons valueLoaderPart(const QVariant &amp;reply)
+
+ KWinWaylandDevice::KWinWaylandDevice(const QString &amp;dbusName)
+     : InputDevice()
+-    , m_dbusName(dbusName)
++    , m_dbusNames({dbusName})
+ {
+ }
+@@ -340,5 +340,5 @@ private:
+-    QString m_dbusName;
++    QStringList m_dbusNames;</code></pre>
+
+                    <p>
+                        With a list instead of a single name, <code>init()</code> now asks every member of the group for its properties, collects all the answers, and hands them to a new merge function instead of using a single reply directly.
+                    </p>
+
+<pre><code class="language-diff">@@ -44,18 +44,25 @@ bool KWinWaylandDevice::init()
+ {
+     bool success = true;
+
++    QList&lt;QVariantMap&gt; deviceProperties;
++    deviceProperties.reserve(m_dbusNames.size());
++
++    for (const QString &amp;dbusName : std::as_const(m_dbusNames)) {
+         auto message = QDBusMessage::createMethodCall(QStringLiteral("org.kde.KWin"),
+-                                                      QStringLiteral("/org/kde/KWin/InputDevice/") + m_dbusName,
++                                                      QStringLiteral("/org/kde/KWin/InputDevice/") + dbusName,
+                                                       QStringLiteral("org.freedesktop.DBus.Properties"),
+                                                       QStringLiteral("GetAll"));
+         message &lt;&lt; QStringLiteral("org.kde.KWin.InputDevice");
+         QDBusReply&lt;QVariantMap&gt; reply = QDBusConnection::sessionBus().call(message);
+
+         if (!reply.isValid()) {
+             return false;
+         }
++
++        deviceProperties.append(reply.value());
+     }
+
+-    const auto properties = reply.value();
++    const auto properties = mergedProperties(deviceProperties);</code></pre>
+
+                    <p>
+                        <code>mergedProperties</code> is where the review actually gets answered, and it does two passes.
+                    </p>
+
+                    <p>
+                        The first pass picks a base device, the one whose properties will provide the current values such as acceleration speed and the device name.
+                        It counts how many <code>support</code> flags each device has enabled and keeps the richest one. When two devices tie, it prefers the one with the shorter name.
+                        That tiebreak sounds arbitrary but it is exactly what saves the reviewer's second mouse, because "Razer Orochi V2" and "Razer Orochi V2 Mouse" advertise the same capabilities and the shorter name is the real device.
+                        The same rule leaves "Razer ProClickM" in place on the first mouse, so both cases land on the right base regardless of the order they arrive in.
+                    </p>
+
+                    <p>
+                        The second pass then walks every device again and ORs all the <code>support</code> flags together, so the merged device advertises the union of everything the group can do.
+                        This is why an integer OR is used rather than a boolean one, since some of those properties are button masks and not simple true or false values.
+                    </p>
+
+<pre><code class="language-diff">+QVariantMap KWinWaylandDevice::mergedProperties(const QList&lt;QVariantMap&gt; &amp;deviceProperties) const
++{
++    QVariantMap merged;
++    qsizetype mergedSettings = -1;
++
++    for (const QVariantMap &amp;properties : deviceProperties) {
++        qsizetype settings = 0;
++        for (const auto &amp;[name, value] : properties.asKeyValueRange()) {
++            if (name.startsWith(u"support"_s) &amp;&amp; value.toBool()) {
++                ++settings;
++            }
++        }
++
++        const qsizetype nameLength = properties[m_name.dbus].toString().size();
++        const qsizetype mergedNameLength = merged[m_name.dbus].toString().size();
++
++        if (settings &gt; mergedSettings || (settings == mergedSettings &amp;&amp; nameLength &lt; mergedNameLength)) {
++            merged = properties;
++            mergedSettings = settings;
++        }
++    }
++
++    for (const QVariantMap &amp;properties : deviceProperties) {
++        for (const auto &amp;[name, value] : properties.asKeyValueRange()) {
++            if (name.startsWith(u"support"_s)) {
++                merged[name] = merged[name].toInt() | value.toInt();
++            }
++        }
++    }
++
++    return merged;
++}</code></pre>
+
+<pre><code class="language-diff">@@ -173,17 +213,23 @@ bool KWinWaylandDevice::valueWriter(const Prop&lt;T&gt; &amp;prop)
+     if (!prop.isSaveNeeded()) {
+         return true;
+     }
++
++    bool success = true;
++
++    for (const QString &amp;dbusName : m_dbusNames) {
+         auto message = QDBusMessage::createMethodCall(QStringLiteral("org.kde.KWin"),
+-                                                      QStringLiteral("/org/kde/KWin/InputDevice/") + m_dbusName,
++                                                      QStringLiteral("/org/kde/KWin/InputDevice/") + dbusName,
+                                                       QStringLiteral("org.freedesktop.DBus.Properties"),
+                                                       QStringLiteral("Set"));
+         message &lt;&lt; QStringLiteral("org.kde.KWin.InputDevice") &lt;&lt; prop.dbus &lt;&lt; QVariant::fromValue(QDBusVariant(prop.val));
+         QDBusReply&lt;void&gt; reply = QDBusConnection::sessionBus().call(message);
+         if (reply.error().isValid()) {
+             qCCritical(KCM_MOUSE) &lt;&lt; reply.error().message();
+-            return false;
++            success = false;
+         }
++    }
++
+-    return true;
++    return success;
+ }</code></pre>
+
+<pre><code class="language-diff">@@ -46,6 +47,22 @@ public:
++    void addGroupMember(const QString &amp;dbusName)
++    {
++        m_dbusNames.append(dbusName);
++    }
++
++    bool removeGroupMember(const QString &amp;dbusName)
++    {
++        m_dbusNames.removeOne(dbusName);
++        return !m_dbusNames.isEmpty();
++    }
++
++    bool hasGroupMember(const QString &amp;dbusName) const
++    {
++        return m_dbusNames.contains(dbusName);
++    }</code></pre>
+
+                    <h2>Step three: Doing what the previous Patch did, but correctly this time</h2>
+                    <p>
+                        Now the backend can finally use all of that. Instead of asking "have I seen this group before, if so drop this device", it asks "have I seen this group before, if so hand this device to the object that already represents it".
+                        A new <code>deviceForGroup</code> helper does the lookup, and it returns nothing when the group id is empty, so devices without a group keep behaving exactly as they did before.
+                    </p>
+
+<pre><code class="language-diff">@@ -49,12 +49,36 @@ void InputBackend::findDevices()
++
++        if (KWinWaylandDevice *device = deviceForGroup(dev-&gt;deviceGroup())) {
++            device-&gt;addGroupMember(sysName);
++            if (!device-&gt;init()) {
++                qCCritical(KCM_MOUSE) &lt;&lt; "Error on adding device to its group" &lt;&lt; sysName;
++                m_errorString = i18n("Critical error on reading fundamental device infos of %1.", sysName);
++                return;
++            }
++            qCDebug(KCM_MOUSE).nospace() &lt;&lt; "Device grouped into " &lt;&lt; device-&gt;name() &lt;&lt; ": " &lt;&lt; dev-&gt;name() &lt;&lt; " (" &lt;&lt; sysName &lt;&lt; ")";
++            continue;
++        }
++
+         connect(dev.get(), &amp;KWinWaylandDevice::needsSaveChanged, this, &amp;InputBackend::needsSaveChanged);
+
++KWinWaylandDevice *InputBackend::deviceForGroup(const QString &amp;deviceGroup) const
++{
++    if (deviceGroup.isEmpty()) {
++        return nullptr;
++    }
++
++    const auto it = std::ranges::find_if(m_devices, [&amp;deviceGroup](const std::unique_ptr&lt;KWinWaylandDevice&gt; &amp;device) {
++        return device-&gt;deviceGroup() == deviceGroup;
++    });
++    return it == m_devices.cend() ? nullptr : it-&gt;get();
++}</code></pre>
+
+                    <p>
+                        Calling <code>init()</code> again after adding a member is the part that makes the ordering problem disappear.
+                        Every time a new device joins the group, the merge runs again over all members, so the base device and the union of capabilities are recomputed from scratch.
+                        It no longer matters whether the useful device shows up first, second or last, because by the time the list is complete the merge has seen all of them.
+
+                        And finally, we could hide the ugly repeated devices into a single entry, but without forgeting about the other entries.
+                    </p>
+
+<pre><code class="language-diff">@@ -155,11 +190,18 @@ void InputBackend::onDeviceRowsAboutToBeRemoved(const QModelIndex &amp;parent, int f
+         const auto it = std::ranges::find_if(std::as_const(m_devices), [&amp;sysName](const std::unique_ptr&lt;KWinWaylandDevice&gt; &amp;device) {
+-            return device-&gt;sysName() == sysName;
++            return device-&gt;hasGroupMember(sysName);
+         });
+         if (it == m_devices.cend()) {
+             continue;
+         }
++        if (KWinWaylandDevice *device = it-&gt;get(); device-&gt;removeGroupMember(sysName)) {
++            device-&gt;init();
++            qCDebug(KCM_MOUSE).nospace() &lt;&lt; "Device of group disconnected: " &lt;&lt; sysName &lt;&lt; ", " &lt;&lt; device-&gt;name() &lt;&lt; " remains";
++            Q_EMIT inputDevicesChanged();
++            continue;
++        }
++
+         const int index = std::distance(m_devices.cbegin(), it);</code></pre>
+
+                    <p>
+                        The same grouping path was added to the hot plug handler, so a mouse plugged in mid session merges into its group exactly like one that was already connected at login.
+                    </p>
+
+                    <h2>The Kensington case</h2>
+                    <p>
+                        While going through the new logic we did find one case where it misbehaves, and it is worth noting, not because it is impactful, but because it is funny.
+                    </p>
+
+                    <figure>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Kensington_Expert_Mouse_Wired_Trackball_64325.jpg/960px-Kensington_Expert_Mouse_Wired_Trackball_64325.jpg" alt="A Kensington Expert Mouse wired trackball, a large ball surrounded by four buttons and a scroll ring" style="width: 100%; border-radius: 12px;">
+                        <figcaption>The Kensington Expert Mouse trackball. Photo by Bobulous, CC BY-SA 4.0, via Wikimedia Commons.</figcaption>
+                    </figure>
+
+                    <p>
+                        Some Kensington mice expose a touchpad style device alongside the mouse in the same group.
+                        The problem is that a touchpad supports far more settings than a mouse does, things like tap to click, disable while typing and several different scroll methods, so when our first pass counts how many capabilities each device advertises, the touchpad ends up being the representative of the group.
+                        The merged entry would then take its name and its current values from the touchpad, but it's just a visual thing, the mouse properties will still be present in the group (but some of then do not actually make sense with a normal mice)
+                    </p>
+
+                    <p>
+                        The reason this never actually happens is that KWin does not hand touchpads over to the Mouse KCM in the first place, they belong to the Touchpad KCM instead.
+                        The touchpad never enters the group we build, so it can never be picked as the base device.
+                        The bug is real in the sense that the code would do the wrong thing, and harmless in the sense that the data needed to trigger it never arrives.
+                    </p>
+
+                    <h2>References</h2>
+                    <ul>
+                        <li>
+                            <a href="https://invent.kde.org/plasma/plasma-desktop/-/merge_requests/3896" target="_blank" rel="noopener noreferrer">
+                                Plasma Desktop Merge Request !3896, Group mice by group ID in the device list
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://invent.kde.org/lucasldr/plasma-desktop/-/tree/work/group-devices-by-group-ID-in-the-KCM-device-list" target="_blank" rel="noopener noreferrer">
+                                Working branch, group devices by group ID in the KCM device list
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://invent.kde.org/teams/goals/we-care-about-your-input/-/work_items/18" target="_blank" rel="noopener noreferrer">
+                                KDE work item #18, Add gaming mice features to Mouse KCM
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </main>
+
+        <footer class="site-footer">
+            <p>No rights reserved. <br>You may use this content as you wish.</p>
+        </footer>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-diff.min.js"></script>
+    <script src="../data.js"></script>
+    <script src="post-sync.js"></script>
+</body>
+</html>

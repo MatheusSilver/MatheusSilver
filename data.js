@@ -10,6 +10,18 @@ window.SITE_DATA = {
     ],
     posts: [
         {
+            slug: "week15-reworking-a-patch-after-review",
+            title: "Week 15 - Transforming a small patch, into a giant patch",
+            description: "solving a 'It works on my machine' situation, and our first relatively big project that affects every single one using KDE environment. And before you ask, no, the giant red ball up there is not a mistake, and it is not a mouse we own either. You will have to read until the end to find out what it is doing on this post : D",
+            dateISO: "2026-07-22",
+            dateLabel: "22/07/2026",
+            category: "Week 15",
+            readingTime: "7 min read",
+            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Kensington_Expert_Mouse_Wired_Trackball_64325.jpg/960px-Kensington_Expert_Mouse_Wired_Trackball_64325.jpg",
+            imageBg: "#FAFAFA",
+            url: "posts/week15-reworking-a-patch-after-review"
+        },
+        {
             slug: "week14-plasma-contribution",
             title: "Week 14 - Finally contributing to Plasma Desktop",
             description: "Finally, after facing a lot of difficulties and doubts regarding the compilation of Plasma last week, we finally managed to send our contribution. This week's contribution involves the mouse feature so, from now on, EVERYONE using KDE Plasma is certainly going to use our code, like it or not : D",
