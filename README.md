@@ -83,9 +83,6 @@
   <a href="https://github.com/JLPTrial/JLPTrial">
     <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=JLPTrial&repo=JLPTrial&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
   </a>
-  <a href="https://github.com/IME-Jr-USP/amostra-estatistica">
-    <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=IME-Jr-USP&repo=amostra-estatistica&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
-  </a>
   <a href="github.com/MatheusSilver/Kairos">
     <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=Kairos&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
   </a>
