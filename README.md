@@ -22,32 +22,46 @@
 
 <table>
 <tr>
-<td width="50%" valign="top">
+<td width="50%" valign="top" align="center">
 
 <a href="https://github.com/MatheusSilver/Rick-Agentic-AI-refactoring-assistant-extension">
   <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=Rick-Agentic-AI-refactoring-assistant-extension&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="RICK repository card" />
 </a>
 
-**RICK - Agentic AI Refactoring Assistant**
+Six AI agents refactor Python behind LangGraph approval gates, so every edit arrives as a normal VS Code diff. Undergraduate research project, polished for submission to <b>CBSoft</b> (Brazilian Conference on Software: Practice and Theory).
 
-A VS Code extension that refactors Python with a team of AI agents, built so the developer approves every step. Six specialised agents run behind LangGraph interrupt gates, every edit surfaces as a normal VS Code diff before it counts, and every file is snapshotted so any change can be undone.
-
-Using a FastAPI + WebSocket backend, a provider-agnostic LLM factory, context budgeting, and Pylint/Radon/pytest as the deterministic verification layer. Built over many hours with my undergraduate research supervisor, polished for submission to **CBSoft**, the Brazilian Conference on Software.
-
-`Python` `TypeScript` `LangGraph` `FastAPI` `Pydantic` `Pyright` `Pylint` `Radon` `pytest`
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="26" alt="Python" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="26" alt="TypeScript" />
+<img width="10" />
+<img src="https://cdn.simpleicons.org/langgraph/1C7ED6/7FC8FF" height="26" alt="LangGraph" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" height="26" alt="FastAPI" />
+<img width="10" />
+<img src="https://cdn.simpleicons.org/pydantic/E92063" height="26" alt="Pydantic" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg" height="26" alt="pytest" />
 
 </td>
-<td width="50%" valign="top">
+<td width="50%" valign="top" align="center">
 
 <a href="https://github.com/MatheusSilver/Kairos">
   <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=Kairos&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="Kairos repository card" />
 </a>
 
-**Kairos - Course Planning Platform**
+Winner of the PIPA award at IME-USP. Models course timetables as a constraint satisfaction problem so students stop planning their semester by trial and error, spending hours just trying to decide the best schedule. React front end over a FastAPI backend, with SQLModel on PostgreSQL.
 
-Winner of the **PIPA award at IME-USP**. Kairos picks up a 2023 LabXP project and grows it into a platform that supports students through the messy semester ritual of choosing course schedules, modelling the timetable as a constraint satisfaction problem (CSP) rather than leaving it to trial and error.
-
-`TypeScript` `Constraint Satisfaction` `Web Platform` `Awarded Project`
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="26" alt="React" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="26" alt="TypeScript" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" height="26" alt="FastAPI" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="26" alt="Python" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="26" alt="PostgreSQL" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" height="26" alt="Docker" />
 
 </td>
 </tr>
@@ -57,30 +71,42 @@ Winner of the **PIPA award at IME-USP**. Kairos picks up a 2023 LabXP project an
 
 <table>
 <tr>
-<td width="50%" valign="top">
+<td width="50%" valign="top" align="center">
 
 <a href="https://github.com/MatheusSilver/RevisedSimplex-Solver">
   <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=RevisedSimplex-Solver&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="Revised Simplex Solver repository card" />
 </a>
 
-**Revised Simplex Solver**
+Solves linear programming problems with the revised simplex method on NumPy arrays and writes the whole derivation out as a LaTeX report, so students can follow the solution step by step and learn from it.
 
-An educational optimization solver that runs the revised simplex method and emits a detailed LaTeX report with the full step-by-step solution, so the math can be read and checked instead of trusted blindly.
-
-`Python` `Linear Programming` `Numerical Methods` `LaTeX`
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="26" alt="Python" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" height="26" alt="NumPy" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/latex/latex-original.svg" height="26" alt="LaTeX" />
 
 </td>
-<td width="50%" valign="top">
+<td width="50%" valign="top" align="center">
 
 <a href="https://github.com/JLPTrial/JLPTrial">
   <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=JLPTrial&repo=JLPTrial&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="JLPTrial repository card" />
 </a>
 
-**JLPTrial**
+Open source study platform for the Japanese Language Proficiency Test, tracking progress over time and surfacing where a learner is weakest. A React web client and an Expo mobile app sit over a FastAPI service, with Firebase handling authentication and SQLModel on SQLite.
 
-An open source study app for the Japanese Language Proficiency Test that tracks progress over time and surfaces the areas a learner is weakest in, so study time goes where it actually pays off.
-
-`Open Source` `Study Analytics`
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="26" alt="React" />
+<img width="10" />
+<img src="https://cdn.simpleicons.org/expo/1C2024/FFFFFF" height="26" alt="Expo" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="26" alt="TypeScript" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" height="26" alt="FastAPI" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="26" alt="Python" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" height="26" alt="SQLite" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-original.svg" height="26" alt="Firebase" />
 
 </td>
 </tr>
@@ -90,30 +116,32 @@ An open source study app for the Japanese Language Proficiency Test that tracks 
 
 <table>
 <tr>
-<td width="50%" valign="top">
+<td width="50%" valign="top" align="center">
 
 <a href="https://github.com/MatheusSilver/BS-Engine-Mobile-Legacy">
   <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=BS-Engine-Mobile-Legacy&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="BS Engine Mobile repository card" />
 </a>
 
-**BS Engine Mobile**
+A desktop Haxe rhythm game engine rebuilt for Android, covering touch controls, platform bindings and the performance work to make it playable.
 
-A mobile build of a rhythm game engine, covering touch controls, platform bindings and the performance work needed to get a desktop Haxe engine running properly on Android.
+This is the project that made me choose programming as a career, and the reason I value open source as much as I do.
 
-`Haxe` `OpenFL` `Android`
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/haxe/haxe-original.svg" height="26" alt="Haxe" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" height="26" alt="Android" />
 
 </td>
-<td width="50%" valign="top">
+<td width="50%" valign="top" align="center">
 
 <a href="https://github.com/uspgamedev/Treinamento_Metroidvania2024_1">
   <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=uspgamedev&repo=Treinamento_Metroidvania2024_1&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="USPGameDev Metroidvania repository card" />
 </a>
 
-**USPGameDev Metroidvania**
+A Metroidvania built in Unity with a team during the USPGameDev 2024 training program.
 
-A team-built Metroidvania made during the USPGameDev 2024 training program, working in Unity and C# alongside a tutor and other students.
-
-`C#` `Unity` `Team Project`
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" height="26" alt="C#" />
+<img width="10" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg" height="26" alt="Unity" />
 
 </td>
 </tr>
@@ -129,11 +157,19 @@ A team-built Metroidvania made during the USPGameDev 2024 training program, work
 
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" alt="Python" />
 <img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" height="40" alt="NumPy" />
+<img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" height="40" alt="FastAPI" />
 <img width="12" />
 <img src="https://cdn.simpleicons.org/langgraph/1C7ED6/7FC8FF" height="40" alt="LangGraph" />
 <img width="12" />
 <img src="https://cdn.simpleicons.org/pydantic/E92063" height="40" alt="Pydantic" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="40" alt="PostgreSQL" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" height="40" alt="SQLite" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-original.svg" height="40" alt="Firebase" />
 <img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg" height="40" alt="pytest" />
 <img width="12" />
@@ -157,11 +193,15 @@ A team-built Metroidvania made during the USPGameDev 2024 training program, work
 
 **Web, Tooling &amp; Game Dev**
 
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="40" alt="React" />
+<img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain-wordmark.svg" height="40" alt="HTML5" />
 <img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain-wordmark.svg" height="40" alt="CSS3" />
 <img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" height="40" alt="Git" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" height="40" alt="Docker" />
 <img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" height="40" alt="VS Code" />
 <img width="12" />
