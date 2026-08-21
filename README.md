@@ -1,99 +1,215 @@
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=E4D00A&height=120&section=header"/>
+<h1 align="center">Hi, I'm Matheus Silveira</h1>
+<h3 align="center">Computer Science @ IME-USP &middot; Software Engineering &amp; AI</h3>
 
-<h1 align="center">Olá, meu nome é Matheus!</h1>
-<h3 align="center">Seja bem vindo e aproveite sua estadia nesta humilde página</h3>
-<p>A maior parte dos repositórios são de projetos feitos no meu tempo livre, seja como Hobby, seja como parte de um projeto maior.</p>
-<p>Também há projetos feitos no âmbito acadêmico e/ou profissional, apesar de em menor quantidade.</p>
-<h1></h1>
-<h3 align="center">Experiências</h3>
-<h1></h1>
-<div align="center">
-  
-<div align="center">  
-  <img width="49%" height="195px" src="https://github-readme-stats-phi-two-97.vercel.app/api?username=MatheusSilver&show_icons=true&count_private=true&hide_border=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117" alt="MatheusSilver" /> 
-  <img width="41%" height="195px" src="https://github-readme-stats-phi-two-97.vercel.app/api/top-langs/?username=MatheusSilver&layout=compact&hide_border=true&title_color=F4D402FF&text_color=00bfbf&bg_color=0d1117" />
-</div>
+<p align="center">
+  I build <b>agentic AI systems</b> and the engineering around them,
+  from everyday assistant-style tools to full multi-agent environments that software engineers
+  rely on for demanding work. RICK, below, is the clearest example.
+</p>
 
-<div align="center">
-  <div style="display: flex; flex-direction: column; align-items: center; max-width: 800px; margin: 0 auto;">
-    <div style="display: flex; justify-content: center; align-items: center;">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/haxe/haxe-original.svg" height="40" alt="unity logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg" height="40" alt="unity logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" height="40" alt="csharp logo"  />
-  <img width="12" />
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" height="40" alt="c logo"  />
-  <img width="12" />
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" height="40" alt="c logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="40" alt="java logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" alt="python logo"  />
-  <img width="12" />
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain-wordmark.svg" height="40" alt="c logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain-wordmark.svg" height="40" alt="java logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="40" alt="typescript logo"  />
-  <img width="12" />
-    </div>
-  </div>
-</div>
-
-    
-<div>
-    <picture align="center">
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MatheusSilver/MatheusSilver/output/github-contribution-grid-snake-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/MatheusSilver/MatheusSilver/output/github-contribution-grid-snake.svg">
-  <img align="center" alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/MatheusSilver/MatheusSilver/output/github-contribution-grid-snake.svg">
-</picture>
-</div>
-<h1></h1>
-<h3>Projetos que mais gostei de trabalhar</h3>
-
-<div align="center">
-
-  <a href="https://github.com/MatheusSilver/BS-Engine-Mobile-Beta-Release">
-    <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=BS-Engine-Mobile-Beta-Release&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
-  </a>
-  
-  <a href="https://github.com/MatheusSilver/DDTO-Android">
-    <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=DDTO-Android&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
-  </a>
-
+<p align="center">
+  <a href="https://www.linkedin.com/in/matheussfeitosa/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
+  <a href="mailto:matheus.feitosa16@outlook.com"><img src="https://img.shields.io/badge/Email-E4D00A?style=for-the-badge&logo=maildotru&logoColor=black" alt="Email"/></a>
   <br/>
+  <img src="https://img.shields.io/badge/Focus-Agentic%20AI%20%26%20Applied%20AI-E4D00A?style=for-the-badge&labelColor=0d1117"/>
+  <img src="https://img.shields.io/badge/Based%20in-S%C3%A3o%20Paulo%2C%20Brazil-E4D00A?style=for-the-badge&labelColor=0d1117"/>
+  <img src="https://img.shields.io/badge/Languages-PT--BR%20%7C%20EN-E4D00A?style=for-the-badge&labelColor=0d1117"/>
+</p>
 
-  <a href="https://github.com/MatheusSilver/RevisedSimplex-Solver">
-    <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=RevisedSimplex-Solver&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
-  </a>
-  
-  <a href="https://github.com/uspgamedev/Treinamento_Metroidvania2024_1">
-    <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=uspgamedev&repo=Treinamento_Metroidvania2024_1&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
-  </a>
-  <a href="https://github.com/MatheusSilver/miku-public">
-    <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=miku-public&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
-  </a>
-  
-  <a href="https://github.com/MatheusSilver/Rick-Agentic-AI-refactoring-assistant-extension">
-    <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=Rick-Agentic-AI-refactoring-assistant-extension&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
-  </a>
-  <a href="https://github.com/JLPTrial/JLPTrial">
-    <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=JLPTrial&repo=JLPTrial&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
-  </a>
-  <a href="github.com/MatheusSilver/Kairos">
-    <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=Kairos&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" />
-  </a>
+<h1></h1>
+<h3 align="center">Featured work</h3>
+<h1></h1>
 
-  <br/>
+### AI &amp; Research
 
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/MatheusSilver/Rick-Agentic-AI-refactoring-assistant-extension">
+  <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=Rick-Agentic-AI-refactoring-assistant-extension&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="RICK repository card" />
+</a>
+
+**RICK - Agentic AI Refactoring Assistant**
+
+A VS Code extension that refactors Python with a team of AI agents, built so the developer approves every step. Six specialised agents run behind LangGraph interrupt gates, every edit surfaces as a normal VS Code diff before it counts, and every file is snapshotted so any change can be undone.
+
+Using a FastAPI + WebSocket backend, a provider-agnostic LLM factory, context budgeting, and Pylint/Radon/pytest as the deterministic verification layer. Built over many hours with my undergraduate research supervisor, polished for submission to **CBSoft**, the Brazilian Conference on Software.
+
+`Python` `TypeScript` `LangGraph` `FastAPI` `Pydantic` `Pyright` `Pylint` `Radon` `pytest`
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/MatheusSilver/Kairos">
+  <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=Kairos&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="Kairos repository card" />
+</a>
+
+**Kairos - Course Planning Platform**
+
+Winner of the **PIPA award at IME-USP**. Kairos picks up a 2023 LabXP project and grows it into a platform that supports students through the messy semester ritual of choosing course schedules, modelling the timetable as a constraint satisfaction problem (CSP) rather than leaving it to trial and error.
+
+`TypeScript` `Constraint Satisfaction` `Web Platform` `Awarded Project`
+
+</td>
+</tr>
+</table>
+
+### Engineering &amp; Tooling
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/MatheusSilver/RevisedSimplex-Solver">
+  <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=RevisedSimplex-Solver&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="Revised Simplex Solver repository card" />
+</a>
+
+**Revised Simplex Solver**
+
+An educational optimization solver that runs the revised simplex method and emits a detailed LaTeX report with the full step-by-step solution, so the math can be read and checked instead of trusted blindly.
+
+`Python` `Linear Programming` `Numerical Methods` `LaTeX`
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/JLPTrial/JLPTrial">
+  <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=JLPTrial&repo=JLPTrial&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="JLPTrial repository card" />
+</a>
+
+**JLPTrial**
+
+An open source study app for the Japanese Language Proficiency Test that tracks progress over time and surfaces the areas a learner is weakest in, so study time goes where it actually pays off.
+
+`Open Source` `Study Analytics`
+
+</td>
+</tr>
+</table>
+
+### Game Development
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/MatheusSilver/BS-Engine-Mobile-Legacy">
+  <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=MatheusSilver&repo=BS-Engine-Mobile-Legacy&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="BS Engine Mobile repository card" />
+</a>
+
+**BS Engine Mobile**
+
+A mobile build of a rhythm game engine, covering touch controls, platform bindings and the performance work needed to get a desktop Haxe engine running properly on Android.
+
+`Haxe` `OpenFL` `Android`
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/uspgamedev/Treinamento_Metroidvania2024_1">
+  <img src="https://github-readme-stats-phi-two-97.vercel.app/api/pin/?username=uspgamedev&repo=Treinamento_Metroidvania2024_1&show_icons=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117&hide_border=false" alt="USPGameDev Metroidvania repository card" />
+</a>
+
+**USPGameDev Metroidvania**
+
+A team-built Metroidvania made during the USPGameDev 2024 training program, working in Unity and C# alongside a tutor and other students.
+
+`C#` `Unity` `Team Project`
+
+</td>
+</tr>
+</table>
+
+<h1></h1>
+<h3 align="center">Tech stack</h3>
+<h1></h1>
+
+<div align="center">
+
+**AI &amp; Backend**
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" alt="Python" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" height="40" alt="FastAPI" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg" height="40" alt="pytest" />
+
+<img src="https://img.shields.io/badge/LangGraph-1C3C3C?style=flat-square&logo=langchain&logoColor=white" alt="LangGraph"/>
+<img src="https://img.shields.io/badge/Pydantic-E92063?style=flat-square&logo=pydantic&logoColor=white" alt="Pydantic"/>
+<img src="https://img.shields.io/badge/Multi--Agent%20Orchestration-0d1117?style=flat-square&logoColor=E4D00A" alt="Multi-Agent Orchestration"/>
+<img src="https://img.shields.io/badge/Human--in--the--Loop-0d1117?style=flat-square&logoColor=E4D00A" alt="Human-in-the-Loop"/>
+<img src="https://img.shields.io/badge/Static%20Analysis-0d1117?style=flat-square&logoColor=E4D00A" alt="Static Analysis"/>
+
+<img src="https://img.shields.io/badge/WebSockets-0d1117?style=flat-square&logoColor=E4D00A" alt="WebSockets"/>
+<img src="https://img.shields.io/badge/Pyright-0d1117?style=flat-square&logoColor=E4D00A" alt="Pyright"/>
+<img src="https://img.shields.io/badge/Ruff-0d1117?style=flat-square&logo=ruff&logoColor=E4D00A" alt="Ruff"/>
+<img src="https://img.shields.io/badge/devbox-0d1117?style=flat-square&logoColor=E4D00A" alt="devbox"/>
+
+**Languages**
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="40" alt="TypeScript" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="JavaScript" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="40" alt="Java" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" height="40" alt="C" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" height="40" alt="C++" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" height="40" alt="C#" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/haxe/haxe-original.svg" height="40" alt="Haxe" />
+
+**Web, Tooling &amp; Game Dev**
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain-wordmark.svg" height="40" alt="HTML5" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain-wordmark.svg" height="40" alt="CSS3" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" height="40" alt="Git" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" height="40" alt="VS Code" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" height="40" alt="Linux" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/latex/latex-original.svg" height="40" alt="LaTeX" />
+<img width="12" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg" height="40" alt="Unity" />
 
 </div>
 
 <h1></h1>
-<p>Eventualmente faço pequenos hiatos entre os projetos.... E eu não estou falando isso depois de construir esta página próximo ao fim de um destes hiatos...</p>
+<h3 align="center">GitHub activity</h3>
+<h1></h1>
+
+<div align="center">
+  <img width="49%" height="195px" src="https://github-readme-stats-phi-two-97.vercel.app/api?username=MatheusSilver&show_icons=true&count_private=true&hide_border=true&title_color=F4D402FF&icon_color=FFFF8F&text_color=c9d1d9&bg_color=0d1117" alt="GitHub stats for MatheusSilver" />
+  <img width="41%" height="195px" src="https://github-readme-stats-phi-two-97.vercel.app/api/top-langs/?username=MatheusSilver&layout=compact&hide_border=true&title_color=F4D402FF&text_color=00bfbf&bg_color=0d1117" alt="Most used languages" />
+</div>
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/MatheusSilver/MatheusSilver/output/github-contribution-grid-snake-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/MatheusSilver/MatheusSilver/output/github-contribution-grid-snake.svg">
+    <img align="center" alt="GitHub contribution grid snake animation" src="https://raw.githubusercontent.com/MatheusSilver/MatheusSilver/output/github-contribution-grid-snake.svg">
+  </picture>
+</div>
+
+<h1></h1>
+
+<p align="center">
+  Most of what you find here was built in my free time, either as a hobby or as part of something bigger,
+  with academic and research work in the mix too. I like problems where getting the answer is only half the
+  job and proving it is right is the other half.
+  <br/><br/>
+  <b>Currently looking for AI engineering opportunities.</b> The fastest way to reach me is
+  <a href="https://www.linkedin.com/in/matheussfeitosa/">LinkedIn</a> or
+  <a href="mailto:matheus.feitosa16@outlook.com">email</a>, and I'm also on Discord as <code>matheus_silver</code>.
+</p>
+
 <h1></h1>
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=E4D00A&height=120&section=footer"/>
