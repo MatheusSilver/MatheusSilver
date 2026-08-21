@@ -12,9 +12,6 @@
   <a href="https://www.linkedin.com/in/matheussfeitosa/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
   <a href="mailto:matheus.feitosa16@outlook.com"><img src="https://img.shields.io/badge/Email-E4D00A?style=for-the-badge&logo=maildotru&logoColor=black" alt="Email"/></a>
   <br/>
-  <img src="https://img.shields.io/badge/Focus-Agentic%20AI%20%26%20Applied%20AI-E4D00A?style=for-the-badge&labelColor=0d1117"/>
-  <img src="https://img.shields.io/badge/Based%20in-S%C3%A3o%20Paulo%2C%20Brazil-E4D00A?style=for-the-badge&labelColor=0d1117"/>
-  <img src="https://img.shields.io/badge/Languages-PT--BR%20%7C%20EN-E4D00A?style=for-the-badge&labelColor=0d1117"/>
 </p>
 
 <h1></h1>
@@ -134,18 +131,13 @@ A team-built Metroidvania made during the USPGameDev 2024 training program, work
 <img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" height="40" alt="FastAPI" />
 <img width="12" />
+<img src="https://cdn.simpleicons.org/langgraph/1C7ED6/7FC8FF" height="40" alt="LangGraph" />
+<img width="12" />
+<img src="https://cdn.simpleicons.org/pydantic/E92063" height="40" alt="Pydantic" />
+<img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg" height="40" alt="pytest" />
-
-<img src="https://img.shields.io/badge/LangGraph-1C3C3C?style=flat-square&logo=langchain&logoColor=white" alt="LangGraph"/>
-<img src="https://img.shields.io/badge/Pydantic-E92063?style=flat-square&logo=pydantic&logoColor=white" alt="Pydantic"/>
-<img src="https://img.shields.io/badge/Multi--Agent%20Orchestration-0d1117?style=flat-square&logoColor=E4D00A" alt="Multi-Agent Orchestration"/>
-<img src="https://img.shields.io/badge/Human--in--the--Loop-0d1117?style=flat-square&logoColor=E4D00A" alt="Human-in-the-Loop"/>
-<img src="https://img.shields.io/badge/Static%20Analysis-0d1117?style=flat-square&logoColor=E4D00A" alt="Static Analysis"/>
-
-<img src="https://img.shields.io/badge/WebSockets-0d1117?style=flat-square&logoColor=E4D00A" alt="WebSockets"/>
-<img src="https://img.shields.io/badge/Pyright-0d1117?style=flat-square&logoColor=E4D00A" alt="Pyright"/>
-<img src="https://img.shields.io/badge/Ruff-0d1117?style=flat-square&logo=ruff&logoColor=E4D00A" alt="Ruff"/>
-<img src="https://img.shields.io/badge/devbox-0d1117?style=flat-square&logoColor=E4D00A" alt="devbox"/>
+<img width="12" />
+<img src="https://cdn.simpleicons.org/ruff/5C7A1E/D7FF64" height="40" alt="Ruff" />
 
 **Languages**
 
@@ -177,6 +169,8 @@ A team-built Metroidvania made during the USPGameDev 2024 training program, work
 <img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/latex/latex-original.svg" height="40" alt="LaTeX" />
 <img width="12" />
+<img src="https://cdn.simpleicons.org/devbox/280459/A78BFA" height="40" alt="Devbox" />
+<img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg" height="40" alt="Unity" />
 
 </div>
@@ -205,7 +199,7 @@ A team-built Metroidvania made during the USPGameDev 2024 training program, work
   with academic and research work in the mix too. I like problems where getting the answer is only half the
   job and proving it is right is the other half.
   <br/><br/>
-  <b>Currently looking for AI engineering opportunities.</b> The fastest way to reach me is
+  <b>Currently looking for AI engineering opportunities.</b><br> The fastest way to reach me is
   <a href="https://www.linkedin.com/in/matheussfeitosa/">LinkedIn</a> or
   <a href="mailto:matheus.feitosa16@outlook.com">email</a>, and I'm also on Discord as <code>matheus_silver</code>.
 </p>
