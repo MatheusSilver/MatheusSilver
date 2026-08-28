@@ -38,8 +38,6 @@ Six AI agents refactor Python behind LangGraph approval gates, so every edit arr
 <img width="10" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" height="26" alt="FastAPI" />
 <img width="10" />
-<img src="https://cdn.simpleicons.org/pydantic/E92063" height="26" alt="Pydantic" />
-<img width="10" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg" height="26" alt="pytest" />
 
 </td>
@@ -162,8 +160,6 @@ A Metroidvania built in Unity with a team during the USPGameDev 2024 training pr
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" height="40" alt="FastAPI" />
 <img width="12" />
 <img src="https://cdn.simpleicons.org/langgraph/1C7ED6/7FC8FF" height="40" alt="LangGraph" />
-<img width="12" />
-<img src="https://cdn.simpleicons.org/pydantic/E92063" height="40" alt="Pydantic" />
 <img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="40" alt="PostgreSQL" />
 <img width="12" />
