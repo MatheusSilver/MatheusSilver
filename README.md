@@ -235,7 +235,7 @@ A Metroidvania built in Unity with a team during the USPGameDev 2024 training pr
   with academic and research work in the mix too. I like problems where getting the answer is only half the
   job and proving it is right is the other half.
   <br/><br/>
-  <b>Currently looking for AI engineering opportunities.</b><br> The fastest way to reach me is
+  <b>Currently looking for software engineering opportunities.</b><br> The fastest way to reach me is
   <a href="https://www.linkedin.com/in/matheussfeitosa/">LinkedIn</a> or
   <a href="mailto:matheus.feitosa16@outlook.com">email</a>, and I'm also on Discord as <code>matheus_silver</code>.
 </p>
